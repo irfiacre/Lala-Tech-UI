@@ -1,7 +1,7 @@
 "use client";
 import { Poppins } from "next/font/google";
 import "../globals.css";
-import { primaryColorBg } from "@/constants/colors";
+import { primaryColorBg } from "@/constants/values";
 import { Sidebar } from "@/src/views/navigation/sidebar/Sidebar";
 import TopNav from "@/src/views/navigation/topNavbar/TopNav";
 import { useEffect, useState } from "react";

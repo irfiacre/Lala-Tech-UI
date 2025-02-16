@@ -16,3 +16,6 @@ body {
   background: var(--bg-color);
 }
 
+.react-multi-carousel-list {
+  padding: 0rem 0 2rem 0;
+  }

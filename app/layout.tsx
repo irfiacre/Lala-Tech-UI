@@ -2,7 +2,7 @@
 import React from "react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { primaryColorBg } from "@/constants/colors";
+import { primaryColorBg } from "@/constants/values";
 
 const poppins = Poppins({
   subsets: ["latin"],

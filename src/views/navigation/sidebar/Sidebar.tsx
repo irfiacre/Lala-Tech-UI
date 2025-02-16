@@ -3,6 +3,7 @@ import SearchableInput from "@/src/components/inputs/SearchInput";
 import LogoComponent from "@/src/components/logo/LogoComponent";
 import React, { useState } from "react";
 import { MenuItem } from "./MenuSection";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export const Sidebar = () => {
   const sidebarMenu = {
@@ -24,7 +25,17 @@ export const Sidebar = () => {
   return (
     <div className="px-6 py-9 border border-r-sidebarBorderColor h-lvh flex flex-col gap-6">
       <div>
-        <LogoComponent small />
+         <div className="flex justify-center align-middle items-center gap-2 text-textColor">
+              <div
+                    className="bg-textColor p-2 rounded-md"
+                  >
+                    <Icon
+                      icon="game-icons:house-keys"
+                      fontSize={50}
+                      className="text-white"
+                    />
+                  </div>
+            </div>
         <div className="p-3.5">
           <SearchableInput
             inputID="sidebarSearch"

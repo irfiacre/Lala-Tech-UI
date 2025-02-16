@@ -16,6 +16,7 @@ import ReportTemplate from "@/src/components/report/Template";
 import Datepicker from "react-tailwindcss-datepicker";
 import { PulseLoader } from "react-spinners";
 import Properties from "@/src/components/tables/Properties";
+import { RENTAL_PROPERTIES } from "@/constants/fixtures";
 
 
 const DashboardPage = () => {
@@ -120,7 +121,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 space-y-2.5">
       <div className="flex flex-row flex-wrap justify-between max-md:justify-start items-center gap-5 py-1.5">
         {analytics.map((item) => (
           <div className="w-60 py-1.5 max-sm:w-32" key={item.title}>
@@ -128,7 +129,7 @@ const DashboardPage = () => {
           </div>
         ))}
       </div>
-      <div className="flex flex-row justify-between items-center">
+      {/* <div className="flex flex-row justify-between items-center">
         <div className="w-2/5">
           <Datepicker
             value={dateRange}
@@ -144,7 +145,7 @@ const DashboardPage = () => {
           <button
             type="button"
             onClick={() => generateReport()}
-            className="h-12 text-white bg-primary hover:bg-primaryDark focus:outline-none font-medium rounded-lg text-md text-center px-4 flex flex-row items-center justify-center"
+            className="h-12 text-white bg-textColor hover:bg-primaryDark focus:outline-none font-medium rounded-lg text-md text-center px-4 flex flex-row items-center justify-center"
           >
             {generating ? (
               <PulseLoader
@@ -162,9 +163,10 @@ const DashboardPage = () => {
             <Icon icon="material-symbols:download" fontSize={24} />
           </button>
         </div>
-      </div>
+      </div> */}
       <div>
-        <Properties data={[]}  />
+      <h1 className="text-textColor text-2xl capitalize pb-4">My Properties</h1>
+        <Properties data={RENTAL_PROPERTIES}  />
       </div>
     </div>
   );

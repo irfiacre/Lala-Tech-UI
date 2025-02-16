@@ -23,7 +23,7 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
     const currentUrl = window.location.href.split("/");
     setCurrentTitle(
       params.id
-        ? `${params.id?.substring(0, 20)}...`
+        ? `Property (${params.id?.substring(0, 50)})`
         : currentUrl[currentUrl.length - 1]
         ? currentUrl[currentUrl.length - 1]
         : "overview"
@@ -34,7 +34,7 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
 
   return (
     <div className="flex flex-row justify-between">
-      <h1 className="text-primary text-2xl capitalize">{currentTitle}</h1>
+      <h1 className="text-textColor text-2xl capitalize">{currentTitle}</h1>
       <div className="mr-6 flex flex-row gap-3 items-center text-notificationIconColor">
         <div className="">
           <Icon icon="zondicons:notification" fontSize={20} />

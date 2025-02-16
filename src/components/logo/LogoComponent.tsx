@@ -1,7 +1,6 @@
 import React from "react";
-import { primaryColor } from "@/constants/colors";
 import { Poppins } from "next/font/google";
-import LogoIcon from "./LogoIcon";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +21,16 @@ const LogoComponent = ({
   };
   return (
     <div className="flex justify-center align-middle items-center gap-2 text-textColor">
-      <LogoIcon size={logoParams.iconSize} />
+      <div
+            className="bg-primary p-2 rounded-md"
+            // style={{ backgroundColor:  }}
+          >
+            <Icon
+              icon="game-icons:house-keys"
+              fontSize={logoParams.iconSize}
+              className="text-white"
+            />
+          </div>
     </div>
   );
 };

@@ -77,43 +77,7 @@ export const generateApplicant = () => ({
   progress: Math.round(Math.random() * 100),
 });
 
-export const ONBOARDING_PLANS = [
-  {
-    title: "Training on how to use driver tool Kit",
-    courses: 5,
-    description:
-      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    createdAt: new Date(),
-  },
-  {
-    title: "Driver safety (Refresher)",
-    courses: 4,
-    description:
-      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    createdAt: new Date(),
-  },
-  {
-    title: "Initial Training",
-    courses: 3,
-    description:
-      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    createdAt: new Date(),
-  },
-  {
-    title: "Driver safety (Refresher)",
-    courses: 15,
-    description:
-      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    createdAt: new Date(),
-  },
-  {
-    title: "Driver safety (Refresher)",
-    courses: 4,
-    description:
-      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    createdAt: new Date(),
-  },
-];
+
 
 export const ONBOARDING_PLAN_DETAILS = {
   title: "Training on how to use driver tool Kit",
@@ -159,3 +123,67 @@ export const PLACEHOLDER_IMG =
     lastName: "Murenzi",
     role: "renter",
   };
+
+  export const RENTAL_PROPERTIES = [
+  {
+    id:1,
+    propertyId: 'xxxx01',
+    title: "Imbonera on how to use driver tool Kit",
+    description:
+      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+    status:'available',
+    price: '15000',
+    rooms: 3,
+    address: 'Kicukiro, Kanombe, Bibare',
+    furnished: true,
+    images:['https://picsum.photos/400', 'https://picsum.photos/300', 'https://picsum.photos/500', 'https://picsum.photos/400', 'https://picsum.photos/300', 'https://picsum.photos/500']
+  },
+  {
+    id:2,
+    propertyId: 'xxxx02',
+    title: "Training on how to use driver tool Kit",
+    description:
+      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+    status:'available',
+    price: '15000',
+    rooms: 4,
+    address: 'Kicukiro, Kanombe, Bibare',
+    furnished: true
+  },
+  {
+    id:3,
+    propertyId: 'xxxx03',
+    title: "Training on how to use driver tool Kit",
+    description:
+      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+    status:'pending',
+    price: '15000',
+    rooms: 3,
+    address: 'Kicukiro, Kanombe, Bibare',
+    furnished: false
+  },
+  {
+    id:4,
+    propertyId: 'xxxx04',
+    title: "Training on how to use driver tool Kit",
+    description:
+      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+    status:'confirmed',
+    price: '15000',
+    rooms: 3,
+    address: 'Kicukiro, Kanombe, Bibare',
+    furnished: false
+  },
+  {
+    id:5,
+    propertyId: 'xxxx05',
+    title: "on how to use driver tool Kit",
+    description:
+      "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+    status:'available',
+    price: '15000',
+    rooms: 3,
+    address: 'Kicukiro, Kanombe, Bibare',
+    furnished: false
+  },
+];
