@@ -6,7 +6,7 @@ import Image from "next/image";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import CreateUser from "@/src/views/forms/CreateUser";
-import BaseModel from "../models/BaseModel";
+import BaseModel from "../models/ListingModel";
 import { addUser } from "@/services/firebase/authentication";
 import { DEFAULT_PASSWORD, USER_DOC_ID } from "@/constants/fixtures";
 import { createDocEntry } from "@/services/firebase/helpers";

@@ -5,7 +5,7 @@ import BaseCard from "../cards/BaseCard";
 import SearchableInput from "../inputs/SearchInput";
 import Pagination from "./Pagination";
 import Link from "next/link";
-import BaseModel from "../models/BaseModel";
+import BaseModel from "../models/ListingModel";
 import CreateOnboardingPlan from "@/src/views/forms/CreateOnboardingPlan";
 import { Icon } from "@iconify/react";
 import {

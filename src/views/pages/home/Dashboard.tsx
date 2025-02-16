@@ -15,10 +15,12 @@ import html2canvas from "html2canvas";
 import ReportTemplate from "@/src/components/report/Template";
 import Datepicker from "react-tailwindcss-datepicker";
 import { PulseLoader } from "react-spinners";
+import Properties from "@/src/components/tables/Properties";
+
 
 const DashboardPage = () => {
   const moreStatistics = [
-    { title: "Finished Onboarding", count: 0 },
+    { title: "Guests", count: 0 },
     { title: "Currently Onboarding", count: 2 },
     { title: "Available courses", count: 1 },
   ];
@@ -63,19 +65,19 @@ const DashboardPage = () => {
 
   const analytics = [
     {
-      title: "Applications",
+      title: "Guests",
       count: data.length,
     },
     {
-      title: "Accepted",
+      title: "Properties",
       count: data.filter((elt: any) => elt.status === "approved").length,
     },
     {
-      title: "Pending",
+      title: "Earnings",
       count: data.filter((elt: any) => elt.status === "pending").length,
     },
     {
-      title: "Rejected",
+      title: "Rating",
       count: data.filter((elt: any) => elt.status === "rejected").length,
     },
   ];
@@ -119,7 +121,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row flex-wrap justify-between max-md:justify-start items-center gap-1.5 py-1.5">
+      <div className="flex flex-row flex-wrap justify-between max-md:justify-start items-center gap-5 py-1.5">
         {analytics.map((item) => (
           <div className="w-60 py-1.5 max-sm:w-32" key={item.title}>
             <AnalyticsCard title={item.title} count={item.count} />
@@ -162,34 +164,7 @@ const DashboardPage = () => {
         </div>
       </div>
       <div>
-        <Chart title="Weekly Onboarding hours" />
-      </div>
-
-      <BaseCard className="px-10 py-5">
-        <div className="flex flex-row justify-between p-1.5 mb-5">
-          <h1 className="text-xl">More statistics</h1>
-          <span className="text-textLightColor font-light">Just Now</span>
-        </div>
-        {moreStatistics.map((item) => (
-          <div key={item.title}>
-            <div className="flex flex-row justify-between p-1.5">
-              <h1 className="font-medium">{item.title}</h1>
-              <span className="text-textLightColor">{item.count}</span>
-            </div>
-            <hr />
-          </div>
-        ))}
-      </BaseCard>
-      {user?.role === "admin" && <UsersTable data={allStaff} />}
-      <div
-        style={{
-          visibility: "hidden",
-        }}
-        ref={componentRef}
-      >
-        <ReportTemplate
-          period={`${dateRange.startDate} To ${dateRange.endDate}`}
-        />
+        <Properties data={[]}  />
       </div>
     </div>
   );

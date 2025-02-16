@@ -15,8 +15,6 @@ const LandingPage = () => {
     <div className="bg-backgroundColor">
       <TopSection />
       <SecondSection />
-      <ThirdSection />
-      <FourthSection />
       <Footer />
     </div>
   );

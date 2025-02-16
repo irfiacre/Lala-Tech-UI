@@ -6,7 +6,7 @@ import {
   subscribeToCollection,
 } from "@/services/firebase/helpers";
 import isAuth from "@/src/components/isAuth";
-import OnboardingPlansTable from "@/src/components/tables/OnboardingPlansTable";
+import OnboardingPlansTable from "@/src/components/tables/Properties";
 import Loading from "@/src/components/LoadingComponent";
 
 const OnboardingPlans = () => {

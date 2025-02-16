@@ -4,7 +4,7 @@ import BaseCard from "../cards/BaseCard";
 import SearchableInput from "../inputs/SearchInput";
 import Pagination from "./Pagination";
 import Link from "next/link";
-import BaseModel from "../models/BaseModel";
+import BaseModel from "../models/ListingModel";
 import CreateOnboardingPlan from "@/src/views/forms/CreateOnboardingPlan";
 import { Icon } from "@iconify/react";
 import { generateId } from "@/util/helpers";
@@ -113,24 +113,7 @@ const OnboardingPlansTable = ({ data }: { data: Array<any> }) => {
         onInputChange={handleSidebarSearch}
         inputClassName="rounded-md"
       />
-      {openModel && (
-        <BaseModel
-          title={
-            editValues.title ? `Edit (${editValues.title})` : "Create Plan"
-          }
-          onClose={handleCloseModel}
-          containerStyle="w-4/5 p-10"
-        >
-          <div className="">
-            <CreateOnboardingPlan
-              onFormSubmit={handleCreatePlan}
-              defaultDescription={editValues.description}
-              defaultTitle={editValues.title}
-              loading={loading}
-            />
-          </div>
-        </BaseModel>
-      )}
+
       <div className="py-5 text-textLightColor text-base font-semibold flex flex-row justify-between items-center">
         <span>Total = {data.length}</span>
         <button

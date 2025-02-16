@@ -30,7 +30,7 @@ const LoginPage = () => {
     setLoading(false);
   };
   return (
-    <main className="flex flex-row">
+    <main className="flex flex-row text-textColor">
       <div className="w-full flex flex-col items-center gap-2">
         <div className="mt-28">
           <LogoComponent />

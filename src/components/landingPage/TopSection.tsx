@@ -21,7 +21,7 @@ const TopSection = () => {
   };
 
   return (
-    <section className="px-36 py-5 space-y-5 bg-primaryLight max-md:px-5">
+    <section className="px-36 py-5 space-y-5 bg-primaryLight/50 max-md:px-5">
       <div className="flex flex-row items-center justify-between">
         <div>
           <LogoIcon size={26} />

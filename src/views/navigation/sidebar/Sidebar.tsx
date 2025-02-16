@@ -2,9 +2,7 @@
 import SearchableInput from "@/src/components/inputs/SearchInput";
 import LogoComponent from "@/src/components/logo/LogoComponent";
 import React, { useState } from "react";
-import MenuSection, { MenuItem } from "./MenuSection";
-import Link from "next/link";
-import { Icon } from "@iconify/react";
+import { MenuItem } from "./MenuSection";
 
 export const Sidebar = () => {
   const sidebarMenu = {
@@ -15,35 +13,7 @@ export const Sidebar = () => {
         url: "dashboard",
         icon: "material-symbols:dashboard",
       },
-    ],
-    applications: [
-      {
-        title: "All Applications",
-        subtitle: "All submitted Applications",
-        url: "applications",
-        icon: "fa:send",
-      },
-      {
-        title: "Chats",
-        subtitle: "Your chats with applicants",
-        url: "chats",
-        icon: "ic:baseline-message",
-      },
-    ],
-    onboarding: [
-      {
-        title: "All Plans",
-        subtitle: "Onboarding plans",
-        url: "plans",
-        icon: "icon-park-outline:list",
-      },
-      {
-        title: "Employees",
-        subtitle: "Track employees onboarding progress",
-        url: "employees",
-        icon: "material-symbols:supervised-user-circle",
-      },
-    ],
+    ]
   };
   const [searchText, setSearchText] = useState("");
 
@@ -66,29 +36,6 @@ export const Sidebar = () => {
       </div>
       <div>
         <MenuItem content={sidebarMenu.dashboard[0]} />
-      </div>
-      <div>
-        <MenuSection
-          title="Applications"
-          menuItems={sidebarMenu.applications}
-        />
-      </div>
-      <div>
-        <MenuSection title="Onboarding" menuItems={sidebarMenu.onboarding} />
-      </div>
-      <div className="py-6 ml-4">
-        <Link
-          href="/courses"
-          scroll={false}
-          className="flex items-center text-textLightColor text-xl cursor-pointer hover:underline"
-        >
-          <p>Courses</p>
-          <Icon
-            icon="mingcute:right-fill"
-            fontSize={24}
-            className="pt-1 -ml-1"
-          />
-        </Link>
       </div>
     </div>
   );

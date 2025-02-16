@@ -17,7 +17,7 @@ import PillComponent from "@/src/components/PillComponent";
 import BaseCard from "@/src/components/cards/BaseCard";
 import SearchableInput from "@/src/components/inputs/SearchInput";
 import isAuth from "@/src/components/isAuth";
-import BaseModel from "@/src/components/models/BaseModel";
+import BaseModel from "@/src/components/models/ListingModel";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";

@@ -7,6 +7,7 @@ import TopNav from "@/src/views/navigation/topNavbar/TopNav";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { DEFAULT_USER } from "@/constants/fixtures";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,13 +19,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      setUser(JSON.parse(userStr));
-    }
+    // const userStr = localStorage.getItem("user");
+    // if (userStr) {
+    //   setUser(JSON.parse(userStr));
+    // }
+    setUser(DEFAULT_USER)
   }, []);
 
   const [isActive, showSidebar] = useState(false);

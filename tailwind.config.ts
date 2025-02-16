@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        taxiMeter: "url('/img/taxi_car.jpg')",
+        taxiMeter: "url('/img/housing.jpg')",
       },
       colors: {
         primary: "#FAB884",
