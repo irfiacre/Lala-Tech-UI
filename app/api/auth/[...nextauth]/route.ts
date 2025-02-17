@@ -1,32 +1,48 @@
-import {NextAuthOptions} from 'next-auth'
-import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import { getUserByEmail, registerUser } from "@/services/backend";
+import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
-
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
 const authOption: NextAuthOptions = {
-    session: {
-        strategy: 'jwt'
+  session: {
+    strategy: "jwt",
+  },
+  providers: [
+    GoogleProvider({
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+  callbacks: {
+    async signIn({ account, profile }) {
+      if (!profile?.email) {
+        throw new Error("No Profile");
+      }
+      const userData = {
+        firstname: profile.given_name,
+        lastname: profile.family_name,
+        role: "renter",
+        email: profile.email,
+      };
+      const result = await registerUser(userData);
+
+      return true;
     },
-    providers:[
-        GoogleProvider({
-            clientId: GOOGLE_CLIENT_ID,
-            clientSecret: GOOGLE_CLIENT_SECRET
-        })
-    ],
-    callbacks:{
-        async signIn({ account, profile}){
-            if (!profile?.email) {
-                throw new Error('No Profile')
-            }
-            console.log("--------->", profile, account);
-            return true
-        }
-    }
-}
+    async session({ session, token, user }) {
+      if (session.user?.email) {
+        const result = await getUserByEmail(session.user?.email);
 
-const handler = NextAuth(authOption)
+        session.user = { ...session.user, ...result };
+      }
 
-export { handler as GET, handler as POST }
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOption);
+
+export { handler as GET, handler as POST };
