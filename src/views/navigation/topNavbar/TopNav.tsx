@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { signOut } from "next-auth/react"
+
 
 const TopNav = ({ user, title }: { user: any; title: string }) => {
   const params: any = useParams();
@@ -14,9 +16,7 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
 
   const router = useRouter();
   const handleLogout = async () => {
-    localStorage.removeItem("user");
-    await signOutUser();
-    router.replace("/");
+    await signOut({ callbackUrl: process.env.APP_BASE_URL });
   };
 
   useEffect(() => {
@@ -41,15 +41,15 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
         </div>
         <div>|</div>
         <div>
-          <span>{user.firstName}</span> <span>{user.lastName}</span>
+          <span>{user.name}</span>
         </div>
         <div>
           <div className="relative inline-block text-left">
             <div onClick={() => handleDropdown((prevState) => !prevState)}>
               <Image
                 className="rounded-full cursor-pointer hover:border hover:border-borderColorLight"
-                loader={() => user.photoUrl}
-                src={user.photoUrl ? user.photoUrl : PLACEHOLDER_IMG}
+                loader={() => user.image}
+                src={user.image ? user.image : PLACEHOLDER_IMG}
                 alt="Rounded avatar"
                 height={40}
                 width={40}

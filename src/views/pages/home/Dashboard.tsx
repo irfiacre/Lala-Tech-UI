@@ -19,7 +19,7 @@ import Properties from "@/src/components/tables/Properties";
 import { RENTAL_PROPERTIES } from "@/constants/fixtures";
 
 
-const DashboardPage = () => {
+const DashboardPage = ({ userInfo }: {userInfo: any}) => {
   const moreStatistics = [
     { title: "Guests", count: 0 },
     { title: "Currently Onboarding", count: 2 },
@@ -119,6 +119,8 @@ const DashboardPage = () => {
     }
     setGenerating(false);
   };
+  
+console.log('---->', userInfo);
 
   return (
     <div className="flex flex-col gap-5 space-y-2.5">

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DEFAULT_USER } from "@/constants/fixtures";
+import { useSession } from "next-auth/react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,13 +22,7 @@ export default function RootLayout({
 }>) {
   const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    // const userStr = localStorage.getItem("user");
-    // if (userStr) {
-    //   setUser(JSON.parse(userStr));
-    // }
-    setUser(DEFAULT_USER)
-  }, []);
+  const { data: session } = useSession();
 
   const [isActive, showSidebar] = useState(false);
   return (
@@ -36,7 +31,7 @@ export default function RootLayout({
         className={poppins.className}
         style={{ backgroundColor: primaryColorBg }}
       >
-        {!user ? (
+        {!session?.user ? (
           children
         ) : (
           <div className="flex flex-row">
@@ -72,7 +67,7 @@ export default function RootLayout({
 
             <main className="w-full p-6 mt-8">
               <div className="">
-                <TopNav user={user} title="Overview" />
+                <TopNav user={session?.user} title="Overview" />
                 <ToastContainer />
               </div>
               <div>{children}</div>

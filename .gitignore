@@ -15,7 +15,8 @@ bin-release/
 package-lock.json
 .next
 node_modules
-
+.env
+.env.local
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
