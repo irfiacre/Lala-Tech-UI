@@ -17,8 +17,10 @@ interface PropertyState {
 
 const PropertyForm = ({
   onFormSubmit,
+  loading
 }: {
   onFormSubmit: (obj: PropertyState) => void;
+  loading: boolean
 }) => {
   const [state, setState] = useState<PropertyState>({
     title : '',
@@ -61,7 +63,7 @@ const PropertyForm = ({
             <BaseInput
               label="Price"
               value={state.price}
-              placeholder="Enter desired price"
+              placeholder="desired price"
               onInputChange={handleInputChange}
             />
           </div>
@@ -96,9 +98,9 @@ const PropertyForm = ({
         <div className="w-full flex flex-row justify-between">
           <div className="w-full">
             <BaseInput
-              label="Provice/City"
+              label="Province"
               value={state.province}
-              placeholder="Enter province/city address"
+              placeholder="province address"
               onInputChange={handleInputChange}
             />
           </div>
@@ -106,7 +108,7 @@ const PropertyForm = ({
             <BaseInput
               label="District"
               value={state.district}
-              placeholder="Enter district address"
+              placeholder="district address"
               onInputChange={handleInputChange}
             />
           </div>
@@ -114,7 +116,7 @@ const PropertyForm = ({
             <BaseInput
               label="Sector"
               value={state.sector}
-              placeholder="Enter sector address"
+              placeholder="sector address"
               onInputChange={handleInputChange}
             />
           </div>
@@ -141,8 +143,9 @@ const PropertyForm = ({
           type="submit"
           onClick={handleSubmitForm}
           className="w-full h-16 text-white bg-textColor hover:bg-primaryDark focus:outline-none  font-medium rounded-md text-md text-center py-3"
+          disabled={loading}
         >
-          Submit
+          {loading ? "Saving...":"Submit"}
         </button>
       </div>
     </form>

@@ -21,14 +21,14 @@ const authOption: NextAuthOptions = {
       if (!profile?.email) {
         throw new Error("No Profile");
       }
-      const userData = {
+      const userData : any = {
         firstname: profile.given_name,
         lastname: profile.family_name,
         role: "renter",
         email: profile.email,
+        photo_url: profile.picture || null,
       };
       const result = await registerUser(userData);
-
       return true;
     },
     async session({ session, token, user }) {

@@ -5,19 +5,14 @@ import LogoIcon from "../logo/LogoIcon";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import animationData from "../../../public/assets/car_animation.json";
 import { useRouter } from "next/navigation";
-import {signIn, useSession} from 'next-auth/react'
- 
+import { signIn, useSession } from "next-auth/react";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const TopSection = () => {
-  
-
-
   const router = useRouter();
 
   const handleBtnClicked = (condition: string) => {
-    console.log("btn click");
     if (condition === "login") {
       router.push("/dashboard");
     } else {
@@ -25,10 +20,8 @@ const TopSection = () => {
     }
   };
 
-  const handleLoginWithGoogle = ()=> signIn('google', {callbackUrl: 'http://localhost:3000/dashboard'})
-
- 
-  
+  const handleLoginWithGoogle = () =>
+    signIn("google", { callbackUrl: `${process.env.APP_BASE_URL}/dashboard` });
 
   return (
     <section className="px-36 py-5 space-y-5 bg-primaryLight/50 max-md:px-5">

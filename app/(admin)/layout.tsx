@@ -20,11 +20,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [user, setUser] = useState<any>(null);
-
   const { data: session } = useSession();
 
-  const [isActive, showSidebar] = useState(false);
+  const [isActive, showSidebar] = useState(true);
   return (
     <html lang="en">
       <body
