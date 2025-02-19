@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { RENTAL_PROPERTIES } from "@/constants/fixtures";
 import Course from "@/src/components/Course";
 import BaseCard from "@/src/components/cards/BaseCard";
@@ -14,81 +14,39 @@ import Loading from "@/src/components/LoadingComponent";
 import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { RESPONSIVE } from "@/constants/values";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { handleDeleteRental } from "@/services/helpers";
+import { manageProperty } from "@/services/backend";
 
 const PropertyPage = ({ user }: { user: any }) => {
   const params = useParams();
-  const router = useRouter();
   const [property, setProperty] = useState<any>({});
+  const router = useRouter()
 
-  // const handleOnUpdateData = (newChanges: any) => {
-  //   setPlan(newChanges);
-  // };
 
   useEffect(() => {
-    // let result: any = [];
-    // (async () => {
-    //   // Finding plan info in firebase for the initialization
-    //   const planInitialData = await findDocEntryByField(
-    //     PLANS_COLLECTION,
-    //     "id",
-    //     params.id.toLocaleString()
-    //   );
-    //   setPlan(planInitialData);
-    //   result = await getCollectionEntries(COURSES_COLLECTION);
-    //   setFirebaseCourses(result);
-    // })();
-    // return () =>
-    //   subscribeToDocument(
-    //     PLANS_COLLECTION,
-    //     handleOnUpdateData,
-    //     params.id.toLocaleString()
-    //   );
-    setProperty(RENTAL_PROPERTIES[0]);
+    (async () => {
+      const result = await manageProperty(params.id);
+    setProperty(result);
+    })();
   }, [params.id]);
 
-  const handleSubmitOnboardingCourse = async (courseData: any) => {
-    const course = { ...courseData, completed: false };
-    const ONBOARDING_COURSES = property.onboardingPlan
-      ? [...property.onboardingproperty.courses, course]
-      : [course];
-    const onboardingPlan = {
-      courses: ONBOARDING_COURSES,
-      progress: property.onboardingPlan
-        ? property.onboardingproperty.progress
-        : 0,
-      finishedCourses: property.onboardingPlan
-        ? property.onboardingproperty.finishedCourses
-        : 0,
-      totalCourses: ONBOARDING_COURSES.length,
-    };
-
-    const newApplicationInfo = { ...property, onboardingPlan };
-    const courseAdded = await updateDocEntry(
-      PLANS_COLLECTION,
-      params.id.toLocaleString(),
-      newApplicationInfo
-    );
-    if (courseAdded) {
-      toast.success("Course Added to Onboarding Plan", {
+    const deleteProperty=async(propert_id: string)=>{
+      const result = await manageProperty(propert_id, "DELETE");
+      toast.success(`Your property was REMOVED successfuly!`, {
         hideProgressBar: true,
         closeOnClick: true,
-        autoClose: 3000,
+        autoClose: 2000,
       });
+      router.replace("/dashboard");
     }
-  };
-
-  const handleDeleteCourse = (id: string) => {
-    console.log("-----", id);
-  };
 
   return (
     <div>
-      {!property.propertyId ? (
-        <Loading />
+      {!property.property_id ? (
+        <div className="text-textLightColor text-base font-light text-center p-10 -ml-10">
+        <span >Loading Data...</span>
+        </div>
       ) : (
         <BaseCard className="px-10 py-10 text-textDarkColor space-y-5">
           <div className=" flex flex-row max-md:flex-col max-md:divide-y-2 md:divide-x-2">
@@ -99,14 +57,14 @@ const PropertyPage = ({ user }: { user: any }) => {
                 </h1>
                 <div>
                   <div className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-textLightColor bg-inherit rounded-full hover:bg-textColor hover:text-white focus:outline-none">
-                    <Link href={`/properties/edit/${property.propertyId}`}>
+                    <Link href={`/properties/edit/${property.property_id}`}>
                       <Icon icon="tabler:edit" fontSize={28} />
                     </Link>
                   </div>
                   <button
                     className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-red-600 bg-inherit rounded-full hover:bg-red-600 hover:text-white focus:outline-none"
                     type="button"
-                    onClick={() => handleDeleteRental(property)}
+                    onClick={() => deleteProperty(property.property_id)}
                   >
                     <Icon icon="mdi:delete" fontSize={28} />
                   </button>
@@ -123,7 +81,7 @@ const PropertyPage = ({ user }: { user: any }) => {
                 <p>Status: {property.status}</p>
                 <p>Price: {property.price}</p>
                 <p>Rooms: {property.rooms}</p>
-                <p>Address: {property.address}</p>
+                <p>Address: {`${property.province}, ${property.district}, ${property.sector}`}</p>
                 <p>Furnished: {property.furnished ? "Yes" : "No"}</p>
               </div>
             </div>
@@ -170,5 +128,4 @@ const PropertyPage = ({ user }: { user: any }) => {
   );
 };
 
-// export default isAuth(PropertyPage);
-export default PropertyPage;
+export default isAuth(PropertyPage);

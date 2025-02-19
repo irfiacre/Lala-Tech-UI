@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { data: session } = useSession();
+  const [isActive, showSidebar] = useState(false);
 
-  const [isActive, showSidebar] = useState(true);
   return (
     <html lang="en">
       <body

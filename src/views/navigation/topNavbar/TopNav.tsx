@@ -41,15 +41,15 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
         </div>
         <div>|</div>
         <div>
-          <span>{user.name}</span>
+          <span>{user?.name}</span>
         </div>
         <div>
           <div className="relative inline-block text-left">
             <div onClick={() => handleDropdown((prevState) => !prevState)}>
               <Image
                 className="rounded-full cursor-pointer hover:border hover:border-borderColorLight"
-                loader={() => user.image}
-                src={user.image ? user.image : PLACEHOLDER_IMG}
+                loader={() => user?.image}
+                src={user?.image || PLACEHOLDER_IMG}
                 alt="Rounded avatar"
                 height={40}
                 width={40}

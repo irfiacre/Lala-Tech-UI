@@ -14,74 +14,46 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import ReportTemplate from "@/src/components/report/Template";
 import Datepicker from "react-tailwindcss-datepicker";
-import { PulseLoader } from "react-spinners";
 import Properties from "@/src/components/tables/Properties";
-import { RENTAL_PROPERTIES } from "@/constants/fixtures";
+import { getHostAnalytics, getProperties, manageProperty } from "@/services/backend";
+import { toast } from "react-toastify";
 
-
-const DashboardPage = ({ userInfo }: {userInfo: any}) => {
-  const moreStatistics = [
-    { title: "Guests", count: 0 },
-    { title: "Currently Onboarding", count: 2 },
-    { title: "Available courses", count: 1 },
-  ];
-  const fetchStaff = async () => await getAllStaff();
-
-  const [allStaff, setStaff] = useState([]);
-  const [user, setUser] = useState<any>(null);
-  const [generating, setGenerating] = useState(false);
+const DashboardPage = ({ userInfo }: { userInfo: any }) => {
   const [dateRange, setDateRange] = useState<any>({
     startDate: new Date().setMonth(new Date().getMonth() - 1),
     endDate: new Date(),
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [properties, setProperties] = useState<Array<any>>([]);
+  const [refetch, setRefetch] = useState<boolean>(false);
+  const [analytics, setAnalytics] =useState<Array<any>>([])
 
-  const initialFindApplications = async () => {
+  useEffect(() => {
+    
+    (async () => {
     setLoading(true);
-    const result = await getCollectionEntries(APPLICATIONS_COLLECTION);
-    setData(result);
+      const propertiesResult = await getProperties(userInfo.user_id);
+      setProperties(propertiesResult)
+      const analyticsResult = await getHostAnalytics(userInfo.user_id)
+      setAnalytics([
+        {
+          title: "Properties",
+          count: analyticsResult.properties,
+        },
+        {
+          title: "Guests",
+          count: Object.keys(analyticsResult.guests).length,
+        },
+        {
+          title: "Earnings",
+          count: analyticsResult.earnings,
+        },
+      ])
     setLoading(false);
-  };
+    })();
+  }, [refetch]);
+  
 
-  useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      const userObj = JSON.parse(userStr);
-      if (userObj.role === "admin") {
-        fetchStaff().then((result: any) => setStaff(result));
-      }
-      setUser(userObj);
-    }
-  }, []);
-
-  const [data, setData] = useState<any>([]);
-  const handleOnUpdateData = (newChanges: any) =>
-    setData((prevData: any) => [...prevData, newChanges]);
-
-  useEffect(() => {
-    initialFindApplications();
-    return () =>
-      subscribeToCollection(APPLICATIONS_COLLECTION, handleOnUpdateData);
-  }, []);
-
-  const analytics = [
-    {
-      title: "Guests",
-      count: data.length,
-    },
-    {
-      title: "Properties",
-      count: data.filter((elt: any) => elt.status === "approved").length,
-    },
-    {
-      title: "Earnings",
-      count: data.filter((elt: any) => elt.status === "pending").length,
-    },
-    {
-      title: "Rating",
-      count: data.filter((elt: any) => elt.status === "rejected").length,
-    },
-  ];
   const componentRef = useRef<HTMLDivElement>(null);
 
   const generateReport = () => {
@@ -119,14 +91,22 @@ const DashboardPage = ({ userInfo }: {userInfo: any}) => {
     }
     setGenerating(false);
   };
+  const deleteProperty=async(propert_id: string)=>{
+    const result = await manageProperty(propert_id, "DELETE");
+    toast.success(`Your property was REMOVED successfuly!`, {
+      hideProgressBar: true,
+      closeOnClick: true,
+      autoClose: 2000,
+    });
+    setRefetch(true)
+  }
   
-console.log('---->', userInfo);
 
   return (
     <div className="flex flex-col gap-5 space-y-2.5">
-      <div className="flex flex-row flex-wrap justify-between max-md:justify-start items-center gap-5 py-1.5">
+      <div className="flex flex-row flex-wrap justify-start max-md:justify-start items-center gap-5 py-1.5">
         {analytics.map((item) => (
-          <div className="w-60 py-1.5 max-sm:w-32" key={item.title}>
+          <div className="w-1/4 py-1.5 max-sm:w-32" key={item.title}>
             <AnalyticsCard title={item.title} count={item.count} />
           </div>
         ))}
@@ -167,8 +147,10 @@ console.log('---->', userInfo);
         </div>
       </div> */}
       <div>
-      <h1 className="text-textColor text-2xl capitalize pb-4">My Properties</h1>
-        <Properties data={RENTAL_PROPERTIES}  />
+        <h1 className="text-textColor text-2xl capitalize pb-4">
+          My Properties
+        </h1>
+        <Properties data={properties} loading={loading}  deleteProperty={deleteProperty} />
       </div>
     </div>
   );

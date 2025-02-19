@@ -7,7 +7,7 @@ export default function isAuth(Component: any) {
   return function IsAuth(props: any) {
     const { data: session } = useSession();
     if (!session) {
-      redirect("/");
+      // redirect("/");
     }
 
     return <Component user={session?.user} {...props} />;

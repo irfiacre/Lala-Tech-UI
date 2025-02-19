@@ -33,7 +33,7 @@ const BaseInput = ({
           error ? "text-red-500" : "text-textDarkColor"
         } font-bold`}
       >
-        {label}
+        {label} {required && "*"}
       </label>
       <input
         type={inputType}

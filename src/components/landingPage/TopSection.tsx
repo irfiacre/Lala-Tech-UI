@@ -21,7 +21,7 @@ const TopSection = () => {
   };
 
   const handleLoginWithGoogle = () =>
-    signIn("google", { callbackUrl: `${process.env.APP_BASE_URL}/dashboard` });
+    signIn("google", { callbackUrl: `http://localhost:3000/dashboard` });
 
   return (
     <section className="px-36 py-5 space-y-5 bg-primaryLight/50 max-md:px-5">

@@ -5,26 +5,10 @@ import SearchableInput from "../inputs/SearchInput";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import { generateId } from "@/util/helpers";
-import {
-  createDocEntry,
-  deleteDocEntryById,
-  updateDocEntry,
-} from "@/services/firebase/helpers";
-import { PLANS_COLLECTION } from "@/constants/collectionNames";
-import { toast } from "react-toastify";
-import { handleDeleteRental } from "@/services/helpers";
 
-const PropertiesTable = ({ data }: { data: Array<any> }) => {
+const PropertiesTable = ({ data, loading, deleteProperty }: { data: Array<any>, loading: boolean, deleteProperty: (id: string) => void }) => {
   const [searchText, setSearchText] = useState("");
   const [tableData, updateTableData] = useState(data);
-  const [openModel, setOpenCourseModel] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [editValues, setEditValues] = useState({
-    title: "",
-    description: "",
-    id: "",
-  });
 
   useEffect(() => {
     updateTableData(
@@ -56,7 +40,7 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
           <Link href="/properties">Add Another Property</Link>
         </div>
       </div>
-      {/* - Properties (id, propertyId, title, description, hostId, status, rating(Default 3), price, rooms,  [Extra] imageUrls(3), address, furnished) */}
+      {/* - Properties (id, property_id, title, description, hostId, status, rating(Default 3), price, rooms,  [Extra] imageUrls(3), address, furnished) */}
       <div className="py-2.5 text-textLightColor text-base font-semibold flex flex-row align-middle items-center px-1.5 gap-3.5 cursor-pointer bg-backgroundColor">
         <span className="w-full">Title</span>
         <span className="w-full max-sm:hidden">Description</span>
@@ -68,19 +52,21 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
         <span className="w-2/4">Actions</span>
       </div>
       <hr />
-      <div>
+      {loading || !tableData[0] ? <div className="text-textLightColor text-base font-light text-center p-10 -ml-10">
+        <span >{`${loading?"Loading Data...":"No Properties Found"}`}</span>
+        </div>:<div>
         {tableData.map((item) => (
-          <div key={item.propertyId}>
+          <div key={item.property_id}>
             <div className="flex flex-row align-middle items-start py-2.5 px-1.5 gap-1.5 cursor-pointer hover:bg-backgroundColor">
               <div className="text-sm w-full">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-medium">
                     {item.title}
                   </span>
                 </Link>
               </div>
               <div className="text-sm w-full max-sm:hidden">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
                     {item.description.substring(0, 20)}
                   </span>
@@ -88,21 +74,21 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
               </div>
 
               <div className="text-sm w-2/4">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
                     {item.status}
                   </span>
                 </Link>
               </div>
               <div className="text-sm w-2/4">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
                     {item.price}
                   </span>
                 </Link>
               </div>
               <div className="text-sm w-2/4 max-sm:hidden">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
                     {item.rooms}
                   </span>
@@ -110,14 +96,14 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
               </div>
 
               <div className="text-sm w-2/4 max-sm:hidden">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
-                    {item.address}
+                    {`${item.province}, ${item.district}, ${item.sector}`}
                   </span>
                 </Link>
               </div>
               <div className="text-sm w-2/4">
-                <Link href={`/properties/${item.propertyId}`}>
+                <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
                     {item.furnished ? "Yes" : "No"}
                   </span>
@@ -126,14 +112,14 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
 
               <div className="w-2/4">
                 <div className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-textLightColor bg-inherit rounded-full hover:bg-textColor hover:text-white focus:outline-none">
-                  <Link href={`/properties/edit/${item.propertyId}`}>
+                  <Link href={`/properties/edit/${item.property_id}`}>
                     <Icon icon="tabler:edit" fontSize={20} />
                   </Link>
                 </div>
                 <button
                   className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-red-600 bg-inherit rounded-full hover:bg-red-600 hover:text-white focus:outline-none"
                   type="button"
-                  onClick={() => handleDeleteRental(item)}
+                  onClick={() => deleteProperty(item.property_id)}
                 >
                   <Icon icon="mdi:delete" fontSize={20} />
                 </button>
@@ -142,7 +128,7 @@ const PropertiesTable = ({ data }: { data: Array<any> }) => {
             <hr />
           </div>
         ))}
-      </div>
+      </div>}
       <div className="w-full py-10">
         <Pagination prevPage={1} currentPage={1} nextPage={3} totalPages={1} />
       </div>
