@@ -1,66 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseCard from "../cards/BaseCard";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import PillComponent from "../PillComponent";
 import ListingModel from "../models/ListingModel";
+import { getProperties } from "@/services/backend";
 
-const SecondSection = () => {
-  const cardContent = [
-    {
-      propertId: "xxx-yyy-zzz-01",
-      title:
-        "Kigali fully furnished luxury villa for rent on a hilltop in Kinyinya",
-      photoUrl: "https://i.pravatar.cc/450?u=20",
-      description:
-        "The house is built in a large scale compound with a great view, a well designed garden and a modern parking lot. It has a unique design customized for an astonishing living experience filled with superior quality furniture with the following details:",
-      rating: 4,
-      furnished: true,
-    },
-    {
-      propertId: "xxx-yyy-zzz-02",
-      title:
-        "Kigali fully furnished luxury villa for rent on a hilltop in Kinyinya",
-      photoUrl: "https://i.pravatar.cc/450?u=20",
-      description:
-        "The house is built in a large scale compound with a great view, a well designed garden and a modern parking lot. It has a unique design customized for an astonishing living experience filled with superior quality furniture with the following details:",
-      rating: 4,
-      furnished: false,
-    },
-    {
-      propertId: "xxx-yyy-zzz-03",
-      title:
-        "Kigali fully furnished luxury villa for rent on a hilltop in Kinyinya",
-      photoUrl: "https://i.pravatar.cc/450?u=20",
-      description:
-        "The house is built in a large scale compound with a great view, a well designed garden and a modern parking lot. It has a unique design customized for an astonishing living experience filled with superior quality furniture with the following details:",
-      rating: 4,
-      furnished: true,
-    },
-    {
-      propertId: "xxx-yyy-zzz-04s",
-      title:
-        "Kigali fully furnished luxury villa for rent on a hilltop in Kinyinya",
-      photoUrl: "https://i.pravatar.cc/450?u=20",
-      description:
-        "The house is built in a large scale compound with a great view, a well designed garden and a modern parking lot. It has a unique design customized for an astonishing living experience filled with superior quality furniture with the following details:",
-      rating: 4,
-      furnished: false,
-    },
-    {
-      propertId: "xxx-yyy-zzz-05",
-      title:
-        "Kigali fully furnished luxury villa for rent on a hilltop in Kinyinya",
-      photoUrl: "https://i.pravatar.cc/450?u=20",
-      description:
-        "The house is built in a large scale compound with a great view, a well designed garden and a modern parking lot. It has a unique design customized for an astonishing living experience filled with superior quality furniture with the following details:",
-      rating: 4,
-      furnished: true,
-    },
-  ];
+const SecondSection = ({ user }: { user: any }) => {
+  const [cardContent, setCardContent] = useState([]);
 
-  const [selectedRental, setSelectedRental] = useState<null|any>(null)
+  useEffect(() => {
+    (async () => {
+      const result = await getProperties();
+      setCardContent(result);
+    })();
+  }, []);
+
+  const [selectedRental, setSelectedRental] = useState<null | any>(null);
 
   return (
     <section className="px-36 py-10 align-middle max-md:px-5">
@@ -70,30 +27,36 @@ const SecondSection = () => {
             Rental Listings
           </span>
         </div>
-        {selectedRental && <ListingModel onClose={()=> setSelectedRental(null)} listing={selectedRental} />}
-         <div className="grid grid-cols-4 md:grid-cols-3 gap-10 md:gap-5">
-          {cardContent.map((item) => (
+        {selectedRental && (
+          <ListingModel
+            user={user}
+            onClose={() => setSelectedRental(null)}
+            listing={selectedRental}
+          />
+        )}
+        <div className="grid grid-cols-4 max-sm:grid-cols-1 gap-10 max-md:grid-cols-2 md:gap-5">
+          {cardContent.map((item: any) => (
             <BaseCard
-              key={item.propertId}
+              key={item.propert_id}
               className="px-8 py-6 space-y-2 flex flex-col items-center justify-start cursor-pointer hover:bg-primaryLight/5"
-              onClick={()=> setSelectedRental(item)}
+              onClick={() => setSelectedRental(item)}
             >
-              <div>
+              {/* <div>
                 <Image
                   className="rounded-lg w-80 h-40 object-cover bg-textLightColor border border-borderColorLight"
                   loader={() => item.photoUrl}
                   src={item.photoUrl}
-                  alt={`${item.propertId}`}
+                  alt={`${item.propert_id}`}
                   height={100}
                   width={100}
                   unoptimized
                 />
-              </div>
+              </div> */}
               <p className="text-textDarkColor text-lg font-bold">
                 {item.title}
               </p>
-              <p className="text-textLightColor text-sm">
-                {item.description.substring(0, 100)}... (more)
+              <p className="w-full text-textLightColor text-sm">
+                {item.description.substring(0, 50)}... (more)
               </p>
               <div className="w-full flex flex-row items-center justify-between">
                 <div className="flex justify-start items-center gap-2 text-textColor py-1.5  rounded-full text-center cursor-pointer hover:bg-primary/20 capitalize">

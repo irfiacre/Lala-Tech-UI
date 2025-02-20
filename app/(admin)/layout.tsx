@@ -4,10 +4,9 @@ import "../globals.css";
 import { primaryColorBg } from "@/constants/values";
 import { Sidebar } from "@/src/views/navigation/sidebar/Sidebar";
 import TopNav from "@/src/views/navigation/topNavbar/TopNav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DEFAULT_USER } from "@/constants/fixtures";
 import { useSession } from "next-auth/react";
 
 const poppins = Poppins({

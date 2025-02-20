@@ -3,8 +3,8 @@ import React from "react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { primaryColorBg } from "@/constants/values";
-import { SessionProvider } from "next-auth/react"
-
+import { SessionProvider } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,14 +18,15 @@ export default function RootLayout({
 }>) {
   return (
     <SessionProvider>
-    <html lang="en">
-      <body
-        className={poppins.className}
-        style={{ backgroundColor: primaryColorBg }}
-      >
-        {children}
-      </body>
-    </html>
-  </SessionProvider>
+      <html lang="en">
+        <body
+          className={poppins.className}
+          style={{ backgroundColor: primaryColorBg }}
+        >
+          <ToastContainer />
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
