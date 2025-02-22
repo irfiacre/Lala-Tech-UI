@@ -72,13 +72,17 @@ const NavigationSection = ({ user }: { user: any }) => {
               Dashboard
             </Link>
           ) : (
-            <button
-              type="button"
-              onClick={() => handleBtnClicked()}
-              className="text-textColor bg-white hover:text-white hover:bg-textColor focus:outline-none font-medium rounded-lg text-md text-center py-2.5 px-5"
-            >
-              Become a Host
-            </button>
+            <div>
+              {user && (
+                <button
+                  type="button"
+                  onClick={() => handleBtnClicked()}
+                  className="text-textColor hover:text-primary focus:outline-none font-medium rounded-lg text-md text-center py-2.5 px-5"
+                >
+                  Become a Host
+                </button>
+              )}
+            </div>
           )}
 
           {user ? (
@@ -92,7 +96,7 @@ const NavigationSection = ({ user }: { user: any }) => {
             <button
               type="button"
               onClick={() => handleLoginWithGoogle()}
-              className="capitalize text-white bg-textColor hover:text-textColor hover:bg-white focus:outline-none  font-medium rounded-md text-md text-center py-2.5 px-5 disabled:bg-borderColorLight"
+              className="text-textColor hover:text-primary focus:outline-none font-medium rounded-lg text-md text-center py-2.5 px-5"
             >
               Login
             </button>

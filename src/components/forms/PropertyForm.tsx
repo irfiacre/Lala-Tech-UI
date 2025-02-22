@@ -110,7 +110,7 @@ const PropertyForm = ({
               id="furnished"
               className="block w-full p-2 h-14 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none disabled:bg-backgroundColor2"
               onChange={handleInputChange}
-              value={state.furnished}
+              value={`${state.furnished}`}
             >
               <option value={"false"}>False</option>
               <option value={"true"}>True</option>

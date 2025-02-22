@@ -11,7 +11,7 @@ const TopSection = ({ user }: { user: any }) => {
         style={{ height: "45vh" }}
       ></div>
       <div>
-        <div className="ml-5 px-5 py-2 backdrop-blur-sm -mt-44 z-50 absolute text-center max-md:ml-5 max-md:px-5 max-md:-mt-28">
+        <div className="ml-5 px-5 py-2 backdrop-blur-sm -mt-44 z-40 absolute text-center max-md:ml-5 max-md:px-5 max-md:-mt-28">
           <span className="text-white text-3xl font-semibold max-md:text-lg">
             Let's Find you your next home
           </span>
