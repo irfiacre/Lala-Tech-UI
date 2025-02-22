@@ -18,6 +18,7 @@ const registerUser = async (data: any) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -35,6 +36,7 @@ const getUserByEmail = async (email: string) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -59,6 +61,7 @@ const createProperty = async (data: any) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -81,6 +84,7 @@ const getProperties = async (userId?: string) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -109,6 +113,7 @@ const manageProperty = async (
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -127,6 +132,7 @@ const getHostAnalytics = async (userId: string) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -149,6 +155,7 @@ const make_user_a_host = async (email: any) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -171,6 +178,7 @@ const createBooking = async (data: any) => {
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 const manageBooking = async (
@@ -198,6 +206,7 @@ const manageBooking = async (
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 
@@ -209,13 +218,14 @@ const findUserPropertyBooking = async (userId: string, propertyId: string) => {
       { method: "GET" }
     );
 
-    if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+    if (response.status === 404) {
+      return null
     }
     const json = await response.json();
     return json;
   } catch (error) {
     console.error(error);
+    return null
   }
 };
 export {

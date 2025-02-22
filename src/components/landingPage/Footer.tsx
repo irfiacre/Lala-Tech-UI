@@ -16,7 +16,11 @@ const Footer = () => {
     <footer className="px-36 py-10 bg-textColor flex flex-row items-center justify-between max-md:px-5 max-md:flex-wrap max-md:space-y-10">
       <div className="space-y-10">
         <div className="flex items-center">
-          <LogoIcon color="#302d5f" size={40} />
+          <Icon
+            icon="game-icons:house-keys"
+            fontSize={40}
+            className="text-white"
+          />
           <span className="text-white text-4xl font-semibold">laRental</span>
         </div>
         <div>

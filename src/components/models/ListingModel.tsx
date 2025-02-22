@@ -11,6 +11,8 @@ import {
 import { toast } from "react-toastify";
 import Datepicker from "react-tailwindcss-datepicker";
 import { formatDate } from "@/util/helpers";
+import { CldImage } from "next-cloudinary";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const BaseModel = ({
   user,
@@ -30,7 +32,7 @@ const BaseModel = ({
   const {
     title,
     description,
-    photoUrl,
+    photo_urls,
     property_id,
     price,
     rooms,
@@ -41,7 +43,7 @@ const BaseModel = ({
     status,
   } = listing;
 
-  useEffect(() => {    
+  useEffect(() => {
     if (property_id && user?.user_id) {
       (async () => {
         setLoading(true);
@@ -95,11 +97,11 @@ const BaseModel = ({
     setLoading(false);
     onClose();
   };
-  
+
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity flex justify-center items-center z-50 p-5">
-      <div className="h-screen w-3/4 p-5">
-        <BaseCard className="h-3/4 space-y-5 mt-20">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity flex justify-center items-center z-50 p-5 max-md:p-0">
+      <div className="h-screen w-3/4 p-5 max-md:w-full">
+        <BaseCard className="h-auto space-y-5 mt-20 max-md:mt-2">
           <div className="p-2 flex flex-row items-center justify-between">
             <button
               type="button"
@@ -124,20 +126,29 @@ const BaseModel = ({
               <span className="sr-only">Close modal</span>
             </button>
           </div>
-          <div className="px-20">
+          <div className="px-20 max-md:px-5">
             <div className="space-y-5">
               <div>
-                <Image
-                  className="rounded-lg w-80 h-40 object-cover bg-textLightColor border border-borderColorLight"
-                  loader={() => photoUrl}
-                  src={photoUrl}
-                  alt={`${property_id}`}
-                  height={100}
-                  width={100}
-                  unoptimized
-                />
+                {photo_urls[0] && (
+                  <div className="py-2 space-y-2">
+                    <PhotoProvider>
+                      <div className="flex flex-row flex-wrap items-center justify-start gap-1.5">
+                        {photo_urls.map((item: any, index: number) => (
+                          <PhotoView key={index} src={item}>
+                            <CldImage
+                              width={100}
+                              height={50}
+                              src={item}
+                              alt="Uploaded image"
+                              className="my-1.5 rounded-lg h-28 w-52 object-cover cursor-pointer max-md:h-12 max-md:w-28"
+                            />
+                          </PhotoView>
+                        ))}
+                      </div>
+                    </PhotoProvider>
+                  </div>
+                )}
               </div>
-
               <div>
                 <div className="w-full space-y-1">
                   <h1 className="text-lg font-semibold text-textColor">
@@ -171,19 +182,19 @@ const BaseModel = ({
                 <h1 className="text-sm text-textLightColor">
                   Choose the dates
                 </h1>
-                {/* <Datepicker
+                <Datepicker
                   value={dateRange}
                   onChange={(val: any) => setDateRange(val)}
                   primaryColor={"amber"}
-                  inputClassName="w-1/4 border border-textColor rounded-lg p-2.5"
+                  inputClassName="w-1/4 max-lg:w-3/4 border border-textColor rounded-lg p-2.5"
                   placeholder="Booking Date Range"
                   toggleClassName="hidden"
                   minDate={new Date()}
                   displayFormat="YYYY-MM-DD"
-                /> */}
+                />
               </div>
             </div>
-            <div className="w-full items-center justify-center pt-5">
+            <div className="w-full items-center justify-center py-5">
               {!booking && (
                 <button
                   type="submit"
@@ -216,11 +227,14 @@ const BaseModel = ({
                         Cancel Booking
                       </button>
                     </div>
-                  ) : 
-                  <h1 className="text-lg text-textLightColor">
-                    Bookings is already <span className="text-lg font-semibold">{booking.status}</span>
-                  </h1>
-                  }
+                  ) : (
+                    <h1 className="text-lg text-textLightColor">
+                      Bookings is already{" "}
+                      <span className="text-lg font-semibold">
+                        {booking.status}
+                      </span>
+                    </h1>
+                  )}
                 </div>
               )}
             </div>

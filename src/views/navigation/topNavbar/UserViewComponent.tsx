@@ -22,12 +22,12 @@ const UserViewComponent = ({
         <div className="relative inline-block text-left">
           <div onClick={() => handleDropdown((prevState: any) => !prevState)}>
             <Image
-              className="rounded-full cursor-pointer hover:border hover:border-borderColorLight"
+              className="rounded-full cursor-pointer"
               loader={() => user?.image}
               src={user?.image || PLACEHOLDER_IMG}
               alt="Rounded avatar"
-              height={40}
-              width={40}
+              height={38}
+              width={38}
               unoptimized
             />
           </div>

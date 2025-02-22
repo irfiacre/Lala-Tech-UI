@@ -77,8 +77,6 @@ export const generateApplicant = () => ({
   progress: Math.round(Math.random() * 100),
 });
 
-
-
 export const ONBOARDING_PLAN_DETAILS = {
   title: "Training on how to use driver tool Kit",
   description:
@@ -117,73 +115,83 @@ export const SENDER_EMAIL = "driverhub.rw@gmail.com";
 export const PLACEHOLDER_IMG =
   "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
 
-  export const DEFAULT_USER = {
-    photoUrl: "https://i.pravatar.cc",
-    firstName: "Karake",
-    lastName: "Murenzi",
-    role: "renter",
-  };
+export const DEFAULT_USER = {
+  photoUrl: "https://i.pravatar.cc",
+  firstName: "Karake",
+  lastName: "Murenzi",
+  role: "renter",
+};
 
-  export const RENTAL_PROPERTIES = [
+export const RENTAL_PROPERTIES = [
   {
-    id:1,
-    propertyId: 'xxxx01',
+    id: 1,
+    propertyId: "xxxx01",
     title: "Imbonera on how to use driver tool Kit",
     description:
       "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    status:'available',
-    price: '15000',
+    status: "available",
+    price: "15000",
     rooms: 3,
-    address: 'Kicukiro, Kanombe, Bibare',
+    address: "Kicukiro, Kanombe, Bibare",
     furnished: true,
-    images:['https://picsum.photos/400', 'https://picsum.photos/300', 'https://picsum.photos/500', 'https://picsum.photos/400', 'https://picsum.photos/300', 'https://picsum.photos/500']
+    images: [
+      "https://picsum.photos/400",
+      "https://picsum.photos/300",
+      "https://picsum.photos/500",
+      "https://picsum.photos/400",
+      "https://picsum.photos/300",
+      "https://picsum.photos/500",
+    ],
   },
   {
-    id:2,
-    propertyId: 'xxxx02',
+    id: 2,
+    propertyId: "xxxx02",
     title: "Training on how to use driver tool Kit",
     description:
       "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    status:'available',
-    price: '15000',
+    status: "available",
+    price: "15000",
     rooms: 4,
-    address: 'Kicukiro, Kanombe, Bibare',
-    furnished: true
+    address: "Kicukiro, Kanombe, Bibare",
+    furnished: true,
   },
   {
-    id:3,
-    propertyId: 'xxxx03',
+    id: 3,
+    propertyId: "xxxx03",
     title: "Training on how to use driver tool Kit",
     description:
       "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    status:'pending',
-    price: '15000',
+    status: "pending",
+    price: "15000",
     rooms: 3,
-    address: 'Kicukiro, Kanombe, Bibare',
-    furnished: false
+    address: "Kicukiro, Kanombe, Bibare",
+    furnished: false,
   },
   {
-    id:4,
-    propertyId: 'xxxx04',
+    id: 4,
+    propertyId: "xxxx04",
     title: "Training on how to use driver tool Kit",
     description:
       "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    status:'confirmed',
-    price: '15000',
+    status: "confirmed",
+    price: "15000",
     rooms: 3,
-    address: 'Kicukiro, Kanombe, Bibare',
-    furnished: false
+    address: "Kicukiro, Kanombe, Bibare",
+    furnished: false,
   },
   {
-    id:5,
-    propertyId: 'xxxx05',
+    id: 5,
+    propertyId: "xxxx05",
     title: "on how to use driver tool Kit",
     description:
       "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
-    status:'available',
-    price: '15000',
+    status: "available",
+    price: "15000",
     rooms: 3,
-    address: 'Kicukiro, Kanombe, Bibare',
-    furnished: false
+    address: "Kicukiro, Kanombe, Bibare",
+    furnished: false,
   },
 ];
+
+export const DEFAULT_IMAGE =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJQeJyzgAzTEVqXiGe90RGBFhfp_4RcJJMQ&s";

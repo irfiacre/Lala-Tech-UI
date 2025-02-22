@@ -31,6 +31,7 @@ const authOption: NextAuthOptions = {
       const result = await registerUser(userData);
       return true;
     },
+    
     async session({ session, token, user }) {
       if (session.user?.email) {
         const result = await getUserByEmail(session.user?.email);

@@ -17,12 +17,13 @@ import {
 } from "@/services/backend";
 import { toast } from "react-toastify";
 
+
 const DashboardPage = ({ userInfo }: { userInfo: any }) => {
   const [dateRange, setDateRange] = useState<any>({
     startDate: new Date().setMonth(new Date().getMonth() - 1),
     endDate: new Date(),
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [properties, setProperties] = useState<Array<any>>([]);
   const [refetch, setRefetch] = useState<boolean>(false);
   const [analytics, setAnalytics] = useState<Array<any>>([]);
@@ -111,41 +112,6 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
           </div>
         ))}
       </div>
-      {/* <div className="flex flex-row justify-between items-center">
-        <div className="w-2/5">
-          <Datepicker
-            value={dateRange}
-            onChange={(val) => setDateRange(val)}
-            primaryColor={"rose"}
-            showShortcuts={true}
-            showFooter
-            placeholder="Report Date Range"
-            maxDate={new Date()}
-          />
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => generateReport()}
-            className="h-12 text-white bg-textColor hover:bg-primaryDark focus:outline-none font-medium rounded-lg text-md text-center px-4 flex flex-row items-center justify-center"
-          >
-            {generating ? (
-              <PulseLoader
-                color={"#ffffff"}
-                loading={generating}
-                size={10}
-                cssOverride={{ width: "100%" }}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-                speedMultiplier={0.5}
-              />
-            ) : (
-              <span className="pr-2">Generate Report</span>
-            )}
-            <Icon icon="material-symbols:download" fontSize={24} />
-          </button>
-        </div>
-      </div> */}
       <div>
         <h1 className="text-textColor text-2xl capitalize pb-4">
           My Properties

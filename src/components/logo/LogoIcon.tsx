@@ -1,16 +1,14 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 
-function LogoIcon({ size, color }: { size?: number; color?: string }) {
+function LogoIcon({ size, color= "white" }: { size?: number, color?: string }) {
+  
   return (
-    <div
-      className="bg-primary p-2 rounded-md"
-      style={{ backgroundColor: color }}
-    >
+    <div>
       <Icon
         icon="game-icons:house-keys"
         fontSize={size}
-        className="text-white"
+        className={`text-[${color}]`}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import LogoComponent from "../logo/LogoComponent";
 import LogoIcon from "../logo/LogoIcon";
 import BaseCard from "../cards/BaseCard";
 import LineChart from "../charts/LineChart";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface ReportTemplateProps {
   period: string;
@@ -53,10 +54,14 @@ const ReportTemplate = React.forwardRef<HTMLDivElement, ReportTemplateProps>(
           borderRadius: "8px",
         }}
       >
-        <div className="p-5 space-y-10">
+        <div className="px-5  space-y-10">
           <section className="flex flex-row items-end justify-between">
-            <div className="flex flex-row items-center gap-2">
-              <LogoIcon size={28} color="#858597" />
+            <div className="flex flex-row items-center gap-1">
+              <Icon
+                icon="game-icons:house-keys"
+                fontSize={40}
+                className="text-[#858597]"
+              />
               <h1 className="text-textLightColor text-2xl font-medium">
                 Analytics Report
               </h1>

@@ -9,10 +9,10 @@ const PillComponent = ({
   hasCheck: boolean;
 }) => {
   return (
-    <div className="border text-textLightColor py-1.5 px-2.5 m-1  rounded-full text-center cursor-pointer hover:bg-primary/20 capitalize">
-      <div className="flex flex-row items-end gap-1.5">
+    <div className={`${hasCheck ?"text-successGreen": "text-textLightColor"} py-1.5 m-1 rounded-full text-center cursor-pointer hover:bg-primary/20 capitalize`}>
+      <div className="flex flex-row items-center gap-1.5">
        {hasCheck && <Icon icon="fluent-mdl2:completed-solid" fontSize={20} />}
-        <span>{text} </span>
+        <span>{text}</span>
       </div>
     </div>
   );

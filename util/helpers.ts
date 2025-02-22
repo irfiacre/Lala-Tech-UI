@@ -80,3 +80,7 @@ export const generateFileName = (text?: string): string => {
   const baseText = text ? text.split(" ").join("_").toLowerCase() : "";
   return `${new Date().getTime()}-${baseText}`;
 };
+
+export const formatPrice = (num: number | string): string => {
+  return Number(num).toLocaleString(undefined, { maximumFractionDigits: 0 });
+};
