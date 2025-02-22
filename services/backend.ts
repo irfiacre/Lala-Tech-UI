@@ -11,7 +11,7 @@ const registerUser = async (data: any) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
 
     const json = await response.json();
@@ -28,7 +28,7 @@ const getUserByEmail = async (email: string) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
 
     const json = await response.json();
@@ -53,7 +53,7 @@ const createProperty = async (data: any) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -75,7 +75,7 @@ const getProperties = async (userId?: string) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -103,7 +103,7 @@ const manageProperty = async (
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -120,7 +120,7 @@ const getHostAnalytics = async (userId: string) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
 
     const json = await response.json();
@@ -143,7 +143,7 @@ const make_user_a_host = async (email: any) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -165,7 +165,7 @@ const createBooking = async (data: any) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -192,7 +192,7 @@ const manageBooking = async (
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;
@@ -210,7 +210,7 @@ const findUserPropertyBooking = async (userId: string, propertyId: string) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      console.warn(`Response status: ${response.status}`)
     }
     const json = await response.json();
     return json;

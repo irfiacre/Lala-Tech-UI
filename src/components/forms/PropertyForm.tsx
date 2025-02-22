@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import BaseInput from "../inputs/BaseInput";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { CldImage, CldUploadButton, CldVideoPlayer } from "next-cloudinary";
 
 // - Properties (title, description, price, rooms,  [Extra] imageUrls(3), address, furnished)
 
@@ -13,6 +15,7 @@ interface PropertyState {
   district: string;
   sector: string;
   furnished: boolean;
+  photo_urls?: Array<string>;
 }
 
 const PropertyForm = ({
@@ -34,6 +37,9 @@ const PropertyForm = ({
     district: "",
     sector: "",
   });
+  const [imageUrlArray, setImageUrlArray] = useState<Array<string>>([]);
+  const [info, setInfo] = useState<any>();
+  const [error, setError] = useState<any>();
 
   const handleInputChange = (e: any) => {
     e.preventDefault();
@@ -46,7 +52,7 @@ const PropertyForm = ({
 
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
-    onFormSubmit(state);
+    onFormSubmit({ ...state, photo_urls: imageUrlArray });
   };
 
   useEffect(() => {
@@ -60,7 +66,24 @@ const PropertyForm = ({
       district: defaultValues?.district || "",
       sector: defaultValues?.sector || "",
     });
+    setImageUrlArray(defaultValues?.photo_urls || [])
   }, [defaultValues]);
+
+  const handleSuccess = (result: any, widget: any) => {
+    if (result?.info) {
+      setImageUrlArray((prevState: any) => [
+        ...prevState,
+        result?.info.secure_url,
+      ]);
+    }
+    setError(null);
+    widget.close({ quiet: true });
+  };
+
+  const handleError = (error: any, _widget: any) => {
+    setInfo(null);
+    setError(error);
+  };
 
   return (
     <form className="w-full">
@@ -172,12 +195,52 @@ const PropertyForm = ({
             onChange={handleInputChange}
           ></textarea>
         </div>
+
+        <div className="m-3.5">
+          <label className="block mb-2 text-base text-textDarkColor font-bold">
+            Upload Property Images
+          </label>
+          <CldUploadButton
+            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME}
+            className="m-1.5 flex gap-2 text-textLightColor bg-white hover:bg-textColor hover:text-white hover:border-textColor focus:outline-none rounded-lg text-sm text-center p-2 border border-borderColorLight"
+            onError={handleError}
+            onSuccess={handleSuccess}
+            options={{
+              clientAllowedFormats: ["image"],
+              sources: ["local", "camera", "url"],
+            }}
+          >
+            <Icon icon="line-md:cloud-upload-loop" fontSize={20} /> Upload
+          </CldUploadButton>
+          {error && (
+            <p className="mt-2 text-xs text-red-600">{error.statusText}</p>
+          )}
+
+          {imageUrlArray[0] && (
+            <div className="py-2 space-y-2">
+              <p className="text-sm text-textLightColor">Uploaded images</p>
+              <div className="flex flex-row flex-wrap items-center justify-start gap-5">
+                {imageUrlArray.map((imageUrl: any) => (
+                  <div key={imageUrl}>
+                    <CldImage
+                      width={200}
+                      height={100}
+                      src={imageUrl}
+                      alt="Uploaded image"
+                      className="rounded-lg h-28 w-52 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="text-textLightColor text-sm font-light p-2.5">
+          <span>* Is for Required Fields</span>
+        </div>
       </div>
 
-
-      <div className="text-textLightColor text-sm font-light p-2.5">
-        <span >* Is for Required Fields</span>
-        </div>
       <div className="p-3.5">
         <button
           type="submit"

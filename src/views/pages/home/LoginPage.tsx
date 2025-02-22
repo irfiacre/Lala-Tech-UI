@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import LoginForm from "@/src/views/forms/LoginForm";
 import LogoComponent from "@/src/components/logo/LogoComponent";
-import { signExistingUser } from "@/services/firebase/authentication";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
@@ -21,12 +20,6 @@ const LoginPage = () => {
 
   const handleLoginBtn = async (email: string, password: string) => {
     setLoading(true);
-    const user: any = await signExistingUser(email, password);
-    if (user.name?.includes("FirebaseError")) {
-      setLoginError("Invalid User Credentials");
-    } else if (user) {
-      setUser(user);
-    }
     setLoading(false);
   };
   return (

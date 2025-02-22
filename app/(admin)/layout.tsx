@@ -23,14 +23,10 @@ export default function RootLayout({
   const [isActive, showSidebar] = useState(false);
 
   return (
-    <html lang="en">
-      <body
+      <div
         className={poppins.className}
         style={{ backgroundColor: primaryColorBg }}
       >
-        {!session?.user ? (
-          children
-        ) : (
           <div className="flex flex-row">
             <div className={`${isActive ? "w-3/4" : "md:w-2/6"}`}>
               <button
@@ -70,8 +66,6 @@ export default function RootLayout({
               <div>{children}</div>
             </main>
           </div>
-        )}
-      </body>
-    </html>
+      </div>
   );
 }

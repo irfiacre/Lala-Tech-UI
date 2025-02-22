@@ -17,16 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider>
-      <html lang="en">
-        <body
-          className={poppins.className}
-          style={{ backgroundColor: primaryColorBg }}
-        >
+    <html lang="en">
+      <body
+        className={poppins.className}
+        style={{ backgroundColor: primaryColorBg }}
+        suppressHydrationWarning
+      >
+        <SessionProvider>
           <ToastContainer />
           {children}
-        </body>
-      </html>
-    </SessionProvider>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

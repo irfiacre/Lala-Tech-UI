@@ -1,13 +1,8 @@
-import { getAllStaff } from "@/services/firebase/authentication";
 import AnalyticsCard from "@/src/components/cards/AnalyticsCard";
 import BaseCard from "@/src/components/cards/BaseCard";
 import UsersTable from "@/src/components/tables/UsersTable";
 import Chart from "@/src/components/charts/Chart";
 import React, { useEffect, useState, useRef } from "react";
-import {
-  getCollectionEntries,
-  subscribeToCollection,
-} from "@/services/firebase/helpers";
 import { APPLICATIONS_COLLECTION } from "@/constants/collectionNames";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import jsPDF from "jspdf";
@@ -15,7 +10,11 @@ import html2canvas from "html2canvas";
 import ReportTemplate from "@/src/components/report/Template";
 import Datepicker from "react-tailwindcss-datepicker";
 import Properties from "@/src/components/tables/Properties";
-import { getHostAnalytics, getProperties, manageProperty } from "@/services/backend";
+import {
+  getHostAnalytics,
+  getProperties,
+  manageProperty,
+} from "@/services/backend";
 import { toast } from "react-toastify";
 
 const DashboardPage = ({ userInfo }: { userInfo: any }) => {
@@ -26,33 +25,35 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [properties, setProperties] = useState<Array<any>>([]);
   const [refetch, setRefetch] = useState<boolean>(false);
-  const [analytics, setAnalytics] =useState<Array<any>>([])
+  const [analytics, setAnalytics] = useState<Array<any>>([]);
 
   useEffect(() => {
-    
-    (async () => {
-    setLoading(true);
-      const propertiesResult = await getProperties(userInfo.user_id);
-      setProperties(propertiesResult)
-      const analyticsResult = await getHostAnalytics(userInfo.user_id)
-      setAnalytics([
-        {
-          title: "Properties",
-          count: analyticsResult.properties,
-        },
-        {
-          title: "Guests",
-          count: Object.keys(analyticsResult.guests).length,
-        },
-        {
-          title: "Earnings",
-          count: analyticsResult.earnings,
-        },
-      ])
-    setLoading(false);
-    })();
-  }, [refetch]);
-  
+    if (userInfo) {
+      (async () => {
+        setLoading(true);
+        const propertiesResult = await getProperties(userInfo.user_id);
+        setProperties(propertiesResult);
+        const analyticsResult = await getHostAnalytics(userInfo.user_id);
+        setAnalytics([
+          {
+            title: "Properties",
+            count: analyticsResult?.properties || 0,
+          },
+          {
+            title: "Guests",
+            count: analyticsResult
+              ? Object.keys(analyticsResult.guests).length
+              : 0,
+          },
+          {
+            title: "Earnings",
+            count: analyticsResult?.earnings || 0,
+          },
+        ]);
+        setLoading(false);
+      })();
+    }
+  }, [refetch, userInfo]);
 
   const componentRef = useRef<HTMLDivElement>(null);
 
@@ -91,16 +92,15 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
     }
     setGenerating(false);
   };
-  const deleteProperty=async(propert_id: string)=>{
+  const deleteProperty = async (propert_id: string) => {
     const result = await manageProperty(propert_id, "DELETE");
     toast.success(`Your property was REMOVED successfuly!`, {
       hideProgressBar: true,
       closeOnClick: true,
       autoClose: 2000,
     });
-    setRefetch(true)
-  }
-  
+    setRefetch(true);
+  };
 
   return (
     <div className="flex flex-col gap-5 space-y-2.5">
@@ -150,7 +150,11 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
         <h1 className="text-textColor text-2xl capitalize pb-4">
           My Properties
         </h1>
-        <Properties data={properties} loading={loading}  deleteProperty={deleteProperty} />
+        <Properties
+          data={properties}
+          loading={loading}
+          deleteProperty={deleteProperty}
+        />
       </div>
     </div>
   );

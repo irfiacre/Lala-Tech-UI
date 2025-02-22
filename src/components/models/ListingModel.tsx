@@ -171,7 +171,7 @@ const BaseModel = ({
                 <h1 className="text-sm text-textLightColor">
                   Choose the dates
                 </h1>
-                <Datepicker
+                {/* <Datepicker
                   value={dateRange}
                   onChange={(val: any) => setDateRange(val)}
                   primaryColor={"amber"}
@@ -180,7 +180,7 @@ const BaseModel = ({
                   toggleClassName="hidden"
                   minDate={new Date()}
                   displayFormat="YYYY-MM-DD"
-                />
+                /> */}
               </div>
             </div>
             <div className="w-full items-center justify-center pt-5">

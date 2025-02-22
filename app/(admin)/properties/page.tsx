@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 
 const AddProperty = ({ user }: any) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);  
+
   const handleOnSubmit = async (data: any) => {
     setLoading(true);
     const propertyData = {
@@ -30,9 +31,9 @@ const AddProperty = ({ user }: any) => {
   };
 
   return (
-    <div>
+    // <div>
       <PropertyForm onFormSubmit={handleOnSubmit} loading={loading} />
-    </div>
+    // </div>
   );
 };
 

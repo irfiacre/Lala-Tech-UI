@@ -9,10 +9,11 @@ import UserViewComponent from "@/src/views/navigation/topNavbar/UserViewComponen
 import ConfirmModel from "../models/ConfirmModel";
 import { make_user_a_host } from "@/services/backend";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-const TopSection = ({user}:{user: any}) => {
+const TopSection = ({ user }: { user: any }) => {
   const router = useRouter();
   const [isActive, handleDropdown] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -22,8 +23,7 @@ const TopSection = ({user}:{user: any}) => {
     setOpen(true);
   };
 
-  const handleLoginWithGoogle = () =>
-    signIn("google");
+  const handleLoginWithGoogle = () => signIn("google");
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: process.env.APP_BASE_URL });
@@ -39,7 +39,6 @@ const TopSection = ({user}:{user: any}) => {
         hideProgressBar: true,
         closeOnClick: true,
         autoClose: 3000,
-        // onClose: ()=>
       });
     }
     router.push("/dashboard");
@@ -62,13 +61,22 @@ const TopSection = ({user}:{user: any}) => {
           <LogoIcon size={26} />
         </div>
         <div className="flex flex-row items-center justify-end gap-5">
-          <button
-            type="button"
-            onClick={() => handleBtnClicked()}
-            className="text-primary bg-white hover:text-white hover:bg-primary focus:outline-none font-medium rounded-md text-md text-center py-2.5 px-5 border border-primary"
-          >
-            Become a Host
-          </button>
+          {user?.role === "host" ? (
+            <Link
+              href={`/dashboard`}
+              className="text-textColor bg-white hover:text-white hover:bg-textColor focus:outline-none font-medium rounded-md text-md text-center py-2.5 px-5 border border-textColor"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => handleBtnClicked()}
+              className="text-textColor bg-white hover:text-white hover:bg-textColor focus:outline-none font-medium rounded-md text-md text-center py-2.5 px-5 border border-textColor"
+            >
+              Become a Host
+            </button>
+          )}
 
           {user ? (
             <UserViewComponent

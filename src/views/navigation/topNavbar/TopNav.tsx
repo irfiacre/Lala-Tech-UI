@@ -1,10 +1,6 @@
 "use client";
-import { PLACEHOLDER_IMG } from "@/constants/fixtures";
-import { signOutUser } from "@/services/firebase/authentication";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import UserViewComponent from "./UserViewComponent";
