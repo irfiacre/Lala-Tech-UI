@@ -1,14 +1,5 @@
 import AnalyticsCard from "@/src/components/cards/AnalyticsCard";
-import BaseCard from "@/src/components/cards/BaseCard";
-import UsersTable from "@/src/components/tables/UsersTable";
-import Chart from "@/src/components/charts/Chart";
-import React, { useEffect, useState, useRef } from "react";
-import { APPLICATIONS_COLLECTION } from "@/constants/collectionNames";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import ReportTemplate from "@/src/components/report/Template";
-import Datepicker from "react-tailwindcss-datepicker";
+import React, { useEffect, useState } from "react";
 import Properties from "@/src/components/tables/Properties";
 import {
   getHostAnalytics,
@@ -16,7 +7,7 @@ import {
   manageProperty,
 } from "@/services/backend";
 import { toast } from "react-toastify";
-
+import { formatPrice } from "@/util/helpers";
 
 const DashboardPage = ({ userInfo }: { userInfo: any }) => {
   const [dateRange, setDateRange] = useState<any>({
@@ -48,7 +39,7 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
           },
           {
             title: "Earnings",
-            count: analyticsResult?.earnings || 0,
+            count: analyticsResult ? formatPrice(analyticsResult.earnings) : 0,
           },
         ]);
         setLoading(false);
@@ -56,43 +47,6 @@ const DashboardPage = ({ userInfo }: { userInfo: any }) => {
     }
   }, [refetch, userInfo]);
 
-  const componentRef = useRef<HTMLDivElement>(null);
-
-  const generateReport = () => {
-    setGenerating(true);
-    const input = componentRef.current;
-    if (input) {
-      input.style.visibility = "visible";
-      html2canvas(input, { scale: 5 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("p", "mm", "a4");
-        const imgWidth = 210;
-        const pageHeight = 297;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        if (imgHeight > pageHeight) {
-          let position = 0;
-          for (let i = 0; i <= 3; i++) {
-            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-            position -= pageHeight;
-            if (heightLeft > 0) {
-              pdf.addPage();
-            }
-          }
-        } else {
-          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        }
-        pdf.save(
-          `AnalyticsReport-${dateRange.startDate}-${dateRange.endDate}.pdf`
-        );
-        input.style.visibility = "hidden";
-      });
-    }
-    setGenerating(false);
-  };
   const deleteProperty = async (propert_id: string) => {
     const result = await manageProperty(propert_id, "DELETE");
     toast.success(`Your property was REMOVED successfuly!`, {

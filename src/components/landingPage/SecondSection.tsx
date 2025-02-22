@@ -39,7 +39,7 @@ const SecondSection = ({ user }: { user: any }) => {
             listing={selectedRental}
           />
         )}
-        <div className="grid grid-cols-4 max-sm:grid-cols-1 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-lg:gap-5">
+        <div className="grid grid-cols-4 max-sm:grid-cols-1 gap-2.5 max-lg:grid-cols-3 max-md:grid-cols-2">
         {loading && [1,2,3,4].map((elt) => <Skeleton key={elt} count={1} height={200} className="rounded-lg"/>)}
           {cardContent.map((item: any) => (
             <BaseCard
@@ -58,7 +58,7 @@ const SecondSection = ({ user }: { user: any }) => {
                   unoptimized
                 />
               </div>
-              <div className="px-5 space-y-2 pb-5">
+              <div className="px-5 space-y-2 pb-2.5">
                 <p className="text-lg font-medium">
                   {item.title}
                 </p>
@@ -70,7 +70,7 @@ const SecondSection = ({ user }: { user: any }) => {
                   {item.description.substring(0, 50)}... (more)
                 </p>
                 <div className="w-full flex flex-row items-center justify-between">
-                  <div className="flex justify-start items-center gap-2 text-textLightColor py-1.5  rounded-full text-center cursor-pointer hover:bg-primary/20">
+                  <div className="flex justify-start items-center gap-2 text-textLightColor py-1.5  rounded-full text-center cursor-pointer">
                     <span className="text-xs">from</span>
                     <span className="text-black font-semibold">RWF {formatPrice(item.price)}</span>
                     <span className="text-xs">per night</span>

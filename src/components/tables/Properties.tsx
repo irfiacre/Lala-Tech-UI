@@ -5,6 +5,7 @@ import SearchableInput from "../inputs/SearchInput";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { formatPrice } from "@/util/helpers";
 
 const PropertiesTable = ({ data, loading, deleteProperty }: { data: Array<any>, loading: boolean, deleteProperty: (id: string) => void }) => {
   const [searchText, setSearchText] = useState("");
@@ -83,7 +84,7 @@ const PropertiesTable = ({ data, loading, deleteProperty }: { data: Array<any>, 
               <div className="text-sm w-2/4">
                 <Link href={`/properties/${item.property_id}`}>
                   <span className="text-textLightColor font-light">
-                    {item.price}
+                    {formatPrice(item.price)}
                   </span>
                 </Link>
               </div>
