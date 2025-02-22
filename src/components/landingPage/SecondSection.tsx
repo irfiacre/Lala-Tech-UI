@@ -86,7 +86,7 @@ const SecondSection = ({ user }: { user: any }) => {
               </div>
             </BaseCard>
           ))}
-          {!cardContent[0] && (
+          {!loading && !cardContent[0] && (
             <div className="py-10 px-10">
               <span className="text-textLightColor text-2xl font-light">
                 No Listing Available
