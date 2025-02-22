@@ -11,10 +11,10 @@ export const MenuItem = ({ content }: { content: any }) => {
   return (
     <Link href={`/${content.url}`} scroll={false}>
       <div
-        className={`py-4 px-3 mx-3 flex flex-row justify-start items-center gap-4 ${
+        className={`py-4 px-5 mx-3 flex flex-row justify-start items-center gap-4 ${
           active
-            ? "bg-textColor rounded-xl"
-            : " hover:bg-menuIconBackground hover:rounded-xl"
+            ? "bg-textColor rounded-3xl"
+            : " hover:bg-menuIconBackground hover:rounded-3xl"
         }`}
       >
         <div
@@ -33,9 +33,7 @@ export const MenuItem = ({ content }: { content: any }) => {
             {content.title}
           </p>
           <p
-            className={`text-sm  ${
-              active ? "text-white" : "text-borderColorLight"
-            }`}
+            className="text-sm text-borderColorLight"
           >
             {content.subtitle}
           </p>

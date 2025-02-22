@@ -105,6 +105,10 @@ const manageProperty = async (
           }
         : { method }
     );
+    
+    if (response.status === 404) {
+      return null
+    }
 
     if (!response.ok) {
       console.warn(`Response status: ${response.status}`)

@@ -11,12 +11,14 @@ const ConfirmModel = ({
   loading,
   handleConfirmed,
   handleClose,
+  isDelete
 }: {
   title: string;
   subtitle: string;
   loading: boolean;
   handleConfirmed: () => void;
   handleClose: () => void;
+  isDelete?: boolean
 }) => {
 
   return (
@@ -48,7 +50,7 @@ const ConfirmModel = ({
                 type="button"
                 onClick={() => handleConfirmed()}
                 disabled={loading}
-                className="inline-flex w-full justify-center rounded-md bg-textColor px-10 py-2 text-sm font-semibold text-white shadow-xs hover:bg-textColor/80 sm:ml-3 sm:w-auto disabled:bg-gray-500"
+                className={`inline-flex w-full justify-center rounded-md ${isDelete?"bg-red-600 hover:bg-red-500":"bg-textColor hover:bg-textColor/80"} px-10 py-2 text-sm font-semibold text-white shadow-xs  sm:ml-3 sm:w-auto disabled:bg-gray-500`}
               >
                 Yes
               </button>

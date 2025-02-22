@@ -44,17 +44,17 @@ const SecondSection = ({ user }: { user: any }) => {
           {cardContent.map((item: any) => (
             <BaseCard
               key={`${item.property_id}`}
-              className="space-y-2 flex flex-col justify-start cursor-pointer hover:bg-primaryLight/5"
+              className="space-y-2 flex flex-col justify-start cursor-pointer hover:bg-primaryLight/5 rounded-3xl"
               onClick={() => setSelectedRental(item)}
             >
               <div>
                 <Image
-                  className="rounded-t-md w-full h-40 object-cover bg-textLightColor"
+                  className="rounded-t-3xl w-full h-40 object-cover bg-textLightColor"
                   loader={() => item.photoUrl}
                   src={item.photo_urls[0] || DEFAULT_IMAGE}
                   alt={`${item.property_id}`}
-                  height={100}
-                  width={100}
+                  height={200}
+                  width={200}
                   unoptimized
                 />
               </div>

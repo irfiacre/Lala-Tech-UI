@@ -9,12 +9,15 @@ import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { manageProperty } from "@/services/backend";
 import { CldImage } from "next-cloudinary";
+import ConfirmModel from "@/src/components/models/ConfirmModel";
 
 const PropertyPage = ({ user }: { user: any }) => {
   const params = useParams();
-  const [property, setProperty] = useState<any>({});
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [property, setProperty] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(true);
+    const [open, setOpen] = useState<boolean>(false);
+  
 
   useEffect(() => {
     if (!params.id) return;
@@ -34,15 +37,32 @@ const PropertyPage = ({ user }: { user: any }) => {
     });
     router.replace("/dashboard");
   };
+  
   if (loading)
     return (
       <BaseCard className="px-10 py-10 text-textDarkColor space-y-5">
         <div>Loading...</div>
       </BaseCard>
     );
+  
+    const handleConfirmDelete = () => {
+      deleteProperty(property.property_id!);
+      setOpen(false);
+    };
+
 
   return (
     <BaseCard className="px-10 py-10 text-textDarkColor space-y-5">
+      {open && (
+        <ConfirmModel
+          title={`Are you sure you want to delete "${property.title}"`}
+          subtitle="This action is irreversible and permanent"
+          loading={loading}
+          handleConfirmed={handleConfirmDelete}
+          handleClose={() => setOpen(false)}
+          isDelete
+        />
+      )}
       <div className=" flex flex-row max-md:flex-col max-md:divide-y-2 md:divide-x-2">
         <div className="w-full pr-5">
           <div className="w-full flex flex-row justify-between items-center">
@@ -58,7 +78,7 @@ const PropertyPage = ({ user }: { user: any }) => {
               <button
                 className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-red-600 bg-inherit rounded-full hover:bg-red-600 hover:text-white focus:outline-none"
                 type="button"
-                onClick={() => deleteProperty(property?.property_id)}
+                onClick={() => setOpen(true)}
               >
                 <Icon icon="mdi:delete" fontSize={28} />
               </button>

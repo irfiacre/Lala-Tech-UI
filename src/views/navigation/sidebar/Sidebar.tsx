@@ -1,6 +1,5 @@
 "use client";
 import SearchableInput from "@/src/components/inputs/SearchInput";
-import LogoComponent from "@/src/components/logo/LogoComponent";
 import React, { useState } from "react";
 import { MenuItem } from "./MenuSection";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -10,7 +9,7 @@ export const Sidebar = () => {
     dashboard: [
       {
         title: "Dashboard",
-        subtitle: "Daily analytics",
+        subtitle: "Latest Analytics",
         url: "dashboard",
         icon: "material-symbols:dashboard",
       },
@@ -41,7 +40,7 @@ export const Sidebar = () => {
             inputID="sidebarSearch"
             value={searchText}
             onInputChange={handleSidebarSearch}
-            inputClassName="rounded-xl"
+            inputClassName="rounded-full"
           />
         </div>
       </div>
