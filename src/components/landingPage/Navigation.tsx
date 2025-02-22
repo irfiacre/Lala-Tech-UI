@@ -32,13 +32,8 @@ const NavigationSection = ({ user }: { user: any }) => {
     setOpen(false);
 
     if (result.role) {
-      toast.success("You are now a host!", {
-        hideProgressBar: true,
-        closeOnClick: true,
-        autoClose: 3000,
-      });
+      router.push("/dashboard");
     }
-    router.push("/dashboard");
     setLoading(false);
   };
 
