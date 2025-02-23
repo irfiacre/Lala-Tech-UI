@@ -178,34 +178,40 @@ const BaseModel = ({
                 </div>
               </div>
 
-              <div className="w-full space-y-2">
-                <h1 className="text-sm text-textLightColor">
-                  Choose the dates
-                </h1>
-                <Datepicker
-                  value={dateRange}
-                  onChange={(val: any) => setDateRange(val)}
-                  primaryColor={"amber"}
-                  inputClassName="w-1/4 max-lg:w-3/4 border border-textColor rounded-lg p-2.5"
-                  placeholder="Booking Date Range"
-                  toggleClassName="hidden"
-                  minDate={new Date()}
-                  displayFormat="YYYY-MM-DD"
-                />
-              </div>
+              {!booking && (
+                <div className="w-full space-y-2">
+                  <h1 className="text-sm text-textLightColor">
+                    Choose the dates
+                  </h1>
+                  <Datepicker
+                    value={dateRange}
+                    onChange={(val: any) => setDateRange(val)}
+                    primaryColor={"amber"}
+                    inputClassName="w-2/4 max-lg:w-3/4 border border-textColor rounded-lg p-2.5"
+                    placeholder="Booking Date Range"
+                    toggleClassName="hidden"
+                    minDate={new Date()}
+                    displayFormat="YYYY-MM-DD"
+                  />
+                </div>
+              )}
             </div>
             <div className="w-full items-center justify-center py-5">
               {!booking && (
                 <button
                   type="submit"
                   onClick={handleReserveRoom}
-                  className="w-40 h-14 text-white bg-textColor hover:bg-white hover:text-textColor hover:border hover:border-textColor focus:outline-none font-medium rounded-lg text-md text-center py-3 disabled:bg-borderColorLight"
+                  className="w-2/4 h-14 text-white bg-textColor hover:bg-white hover:text-textColor hover:border hover:border-textColor focus:outline-none font-medium rounded-lg text-md text-center py-3 disabled:bg-borderColorLight"
                   disabled={loading}
                 >
-                  Book Now
+                  <span className={(loading && "text-sm") || "text-base"}>
+                    {loading
+                      ? "Checking if property availability..."
+                      : "Book Now"}
+                  </span>
                 </button>
               )}
-              {booking && (
+              {booking && booking.status !== "canceled" && (
                 <div>
                   {booking.status === "pending" ? (
                     <div className="flex flex-row gap-5">
@@ -228,12 +234,20 @@ const BaseModel = ({
                       </button>
                     </div>
                   ) : (
-                    <h1 className="text-lg text-textLightColor">
-                      Bookings is already{" "}
+                    <div className="py-5 text-base text-textColor space-x-2">
+                      <span>Bookings is already</span>
                       <span className="text-lg font-semibold">
                         {booking.status}
                       </span>
-                    </h1>
+                      <span>From</span>
+                      <span className="text-lg font-semibold">
+                        {booking.start_date}
+                      </span>
+                      <span>To</span>
+                      <span className="text-lg font-semibold">
+                        {booking.end_date}
+                      </span>
+                    </div>
                   )}
                 </div>
               )}
