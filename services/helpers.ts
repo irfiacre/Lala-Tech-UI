@@ -1,10 +1,6 @@
 import { toast } from "react-toastify";
 import { manageProperty } from "./backend";
 
-const handleEditPlan = (plan: any) => {
-  console.log("EDITED");
-};
-
 const handleDeleteRental = async (propert_id: any) => {
   const result = await manageProperty(propert_id, "DELETE");
   toast.success(`Your property was REMOVED successfuly!`, {
@@ -27,4 +23,4 @@ function getEmptyFields(obj: any) {
   });
 }
 
-export { handleEditPlan, handleDeleteRental, getEmptyFields };
+export { handleDeleteRental, getEmptyFields };

@@ -9,16 +9,18 @@ const registerUser = async (data: any) => {
       },
       body: JSON.stringify(data),
     });
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
 
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -27,16 +29,18 @@ const getUserByEmail = async (email: string) => {
     const response = await fetch(`${BACKEND_BASE_URL}/users/${email}/`, {
       method: "GET",
     });
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
 
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -53,15 +57,17 @@ const createProperty = async (data: any) => {
         body: JSON.stringify(data),
       }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -76,15 +82,17 @@ const getProperties = async (userId?: string) => {
         method: "GET",
       }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -99,25 +107,25 @@ const manageProperty = async (
       `https://larental.onrender.com/api/properties/${property_id}/`,
       method === "PATCH"
         ? {
-            method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          }
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
         : { method }
     );
-    
+
     if (response.status === 404) {
-      return null
+      return null;
     }
 
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -127,16 +135,18 @@ const getHostAnalytics = async (userId: string) => {
       `https://larental.onrender.com/api/analytics/${userId}`,
       { method: "GET" }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
 
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -151,15 +161,17 @@ const make_user_a_host = async (email: any) => {
         body: JSON.stringify({ role: "host" }),
       }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -174,15 +186,17 @@ const createBooking = async (data: any) => {
         body: JSON.stringify(data),
       }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 const manageBooking = async (
@@ -196,21 +210,23 @@ const manageBooking = async (
       `https://larental.onrender.com/api/bookings/${booking_id}/`,
       method === "PATCH"
         ? {
-            method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          }
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
         : { method }
     );
-
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
-      console.warn(`Response status: ${response.status}`)
+      console.warn(`Response status: ${response.status}`);
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 
@@ -223,13 +239,13 @@ const findUserPropertyBooking = async (userId: string, propertyId: string) => {
     );
 
     if (response.status === 404) {
-      return null
+      return null;
     }
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null
+    console.warn(error);
+    return null;
   }
 };
 export {

@@ -29,9 +29,7 @@ const BaseInput = ({
     <div className="p-3.5">
       <label
         htmlFor={inputID}
-        className={`block mb-2 ${
-          error ? "text-red-500" : "text-textDarkColor"
-        } font-bold`}
+        className={`block mb-2 ${error && "text-red-500"}`}
       >
         {label} {required && "*"}
       </label>

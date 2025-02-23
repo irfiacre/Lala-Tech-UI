@@ -38,8 +38,13 @@ const PropertyForm = ({
     sector: "",
   });
   const [imageUrlArray, setImageUrlArray] = useState<Array<string>>([]);
-  const [info, setInfo] = useState<any>();
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<any>({
+    title: "",
+    price: "",
+    rooms: "",
+    province: "",
+    imageUpload: "",
+  });
 
   const handleInputChange = (e: any) => {
     e.preventDefault();
@@ -48,10 +53,39 @@ const PropertyForm = ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+    setError((prevState: any) => ({ ...prevState, [e.target.id]: "" }));
   };
 
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
+    if (state.title === "") {
+      setError((prevState: any) => ({
+        ...prevState,
+        title: "Title is required!",
+      }));
+      return;
+    }
+    if (state.price === "") {
+      setError((prevState: any) => ({
+        ...prevState,
+        price: "Price is required!",
+      }));
+      return;
+    }
+    if (state.rooms === "") {
+      setError((prevState: any) => ({
+        ...prevState,
+        rooms: "Rooms is required!",
+      }));
+      return;
+    }
+    if (state.province === "") {
+      setError((prevState: any) => ({
+        ...prevState,
+        province: "Province is required!",
+      }));
+      return;
+    }
     onFormSubmit({ ...state, photo_urls: imageUrlArray });
   };
 
@@ -66,23 +100,31 @@ const PropertyForm = ({
       district: defaultValues?.district || "",
       sector: defaultValues?.sector || "",
     });
-    setImageUrlArray(defaultValues?.photo_urls || [])
+    setImageUrlArray(defaultValues?.photo_urls || []);
   }, [defaultValues]);
 
   const handleSuccess = (result: any, widget: any) => {
+    console.log("-----", result);
+
     if (result?.info) {
       setImageUrlArray((prevState: any) => [
         ...prevState,
         result?.info.secure_url,
       ]);
     }
-    setError(null);
+    setError((prevState: any) => ({
+      ...prevState,
+      imageUpload: "",
+    }));
     widget.close({ quiet: true });
   };
 
   const handleError = (error: any, _widget: any) => {
-    setInfo(null);
     setError(error);
+    setError((prevState: any) => ({
+      ...prevState,
+      imageUpload: error,
+    }));
   };
 
   return (
@@ -96,6 +138,7 @@ const PropertyForm = ({
               placeholder="Title for the listing"
               onInputChange={handleInputChange}
               required
+              error={error.title}
             />
           </div>
 
@@ -117,39 +160,55 @@ const PropertyForm = ({
             </select>
           </div>
         </div>
-        <div className="w-full flex flex-row justify-between">
-          <div className="w-full p-3.5">
-            <label
-              htmlFor="price"
-              className="block mb-2 text-base text-textDarkColor font-bold"
-            >
-              Price *
+        <div className="w-full flex flex-row justify-between mb-2">
+          <div
+            className={`w-full p-3.5 block mb-2 ${
+              error.price && "text-red-500"
+            }`}
+          >
+            <label htmlFor="price" className="block mb-2 text-base">
+              Price per night *
             </label>
             <input
               type="number"
               id="price"
-              className={`block w-full p-2 h-14 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none`}
+              className={`block w-full p-2 h-14 ${
+                error.price
+                  ? "bg-red-50 border border-red-500 text-red-900"
+                  : "bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight"
+              } text-md rounded-md  focus:outline-none disabled:bg-backgroundColor2`}
               placeholder="Enter desired price property..."
               value={state.price}
               onChange={handleInputChange}
               required
             />
+            {error.rooms && (
+              <p className="mt-2 text-sm text-red-500">{error.price}</p>
+            )}
           </div>
-          <div className="w-full p-3.5">
-            <label
-              htmlFor="rooms"
-              className="block mb-2 text-base text-textDarkColor font-bold"
-            >
+          <div
+            className={`w-full p-3.5 block mb-2 ${
+              error.rooms && "text-red-500"
+            }`}
+          >
+            <label htmlFor="rooms" className="block mb-2 text-base">
               Number of Rooms *
             </label>
             <input
               type="number"
               id="rooms"
-              className={`block w-full p-2 h-14 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none`}
+              className={`block w-full p-2 h-14 ${
+                error.rooms
+                  ? "bg-red-50 border border-red-500 text-red-900"
+                  : "bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight"
+              } text-md rounded-md  focus:outline-none disabled:bg-backgroundColor2`}
               placeholder="Enter number of rooms in the property..."
               value={state.rooms}
               onChange={handleInputChange}
             />
+            {error.rooms && (
+              <p className="mt-2 text-sm text-red-500">{error.rooms}</p>
+            )}
           </div>
         </div>
         <div className="w-full flex flex-row justify-between">
@@ -160,6 +219,7 @@ const PropertyForm = ({
               placeholder="province address"
               onInputChange={handleInputChange}
               required
+              error={error.province}
             />
           </div>
           <div className="w-full">
@@ -179,17 +239,14 @@ const PropertyForm = ({
             />
           </div>
         </div>
-        <div className="w-full p-3.5">
-          <label
-            htmlFor="furnished"
-            className="block mb-2 text-base text-textDarkColor font-bold"
-          >
+        <div className="w-full p-3.5 block mb-2">
+          <label htmlFor="furnished" className="mb-2 text-base">
             Description
           </label>
           <textarea
             id="description"
             rows={4}
-            className={`block w-full p-2 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none`}
+            className="block w-full p-2 h-14 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none disabled:bg-backgroundColor2"
             placeholder="Enter description for the property..."
             value={state.description}
             onChange={handleInputChange}

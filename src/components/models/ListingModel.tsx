@@ -10,7 +10,7 @@ import {
 } from "@/services/backend";
 import { toast } from "react-toastify";
 import Datepicker from "react-tailwindcss-datepicker";
-import { formatDate } from "@/util/helpers";
+import { formatDate, formatPrice } from "@/util/helpers";
 import { CldImage } from "next-cloudinary";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
@@ -161,7 +161,7 @@ const BaseModel = ({
                 <div className="w-full text-textLightColor space-y-1">
                   <p>
                     <span className="text-textColor pr-1">Price: </span>
-                    {price}
+                    {formatPrice(price)} Rwf
                   </p>
                   <p>
                     <span className="text-textColor pr-1">Rooms: </span>
