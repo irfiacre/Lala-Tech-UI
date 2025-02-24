@@ -14,6 +14,7 @@ This is a fullstack a web-based application designed to manage rental properties
 
 #### Tech stack
 
+- Typescript
 - NextJS
 - React
 
